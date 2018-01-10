@@ -236,7 +236,7 @@
 .calendar .user-week > div > div:nth-child(even){
   background-color: #f7f7f7;
 }
-.calendar .user .user-name div:nth-of-type(2){
+.calendar .user .user-name div:nth-of-type(3){
   padding: 2px;
   box-shadow: 0 0 3px rgba(0,0,0,0.6);
   margin-right: 10px;
@@ -443,7 +443,8 @@
     flex-direction: column;
     align-items: center;
     & .user-image{display: none;}
-    & > div:nth-of-type(2){
+    & > div:nth-of-type(2){justify-content: center;}
+    & > div:nth-of-type(3){
       margin-right: 0;
       display: flex;
       justify-content: space-around;
@@ -501,7 +502,7 @@
 }
 @media screen and (max-width: 512px) {
   .switch-wearers {
-    & > div:nth-of-type(2){
+    & > div:nth-of-type(3){
       margin-right: 0;
       display: flex;
       justify-content: space-around;
@@ -535,7 +536,7 @@
   .modal-edit :first-child{padding-top: 0;}
   .setdate .rdt{left: 2px;}
   .modal-edit .start p, .modal-edit .end p{width: 90%;}
-  .switch-wearers > div:nth-of-type(2){
+  .switch-wearers > div:nth-of-type(3){
     margin-right: 0;
     padding-left: 0;
     flex-direction: column;
