@@ -1,12 +1,28 @@
 .reminders .navigation ul li:nth-child(2) {background-color: #a1a1a1;}
 .switch-wearers .add-group .dropdown{display: none;}
-.switch-wearers > div {padding-left: 10px;}
+.switch-wearers > div {padding-left: 10px; padding-bottom: 10px;}
 
 .reminders .switch-date p, .reminders .user-name p, .reminders .change-week p{
   font-size: 13px;
   font-family: 'DINPro-Medium'
 }
-
+.return-to-wearers{
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	color: #C0C0C0;
+	font-size: 16px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: normal;
+	& img {
+		height: 24px;
+		width: 24px;
+		margin-right: 10px;
+	}
+}
 .one-wearer{
   width: 14.2857143%;
 }
@@ -93,6 +109,10 @@
   display: flex; 
   align-items: center; 
   margin-right: 30px;
+}
+.switch-wearers > div:nth-of-type(3){
+	display: flex;
+	align-items: center;
 }
 
 .search {
