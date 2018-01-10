@@ -19,9 +19,6 @@ import Modal from "react-responsive-modal";
 import defaultavatar from '../settings/default_avatar.png';
 import arrow from '../assets/icons/back-arrow.svg';
 
-
-
-
 let reminders = [];
 class Reminder extends React.Component {
   constructor(props){

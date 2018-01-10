@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import group from '../../assets/icons/grouprem.svg';
 import crB from '../../assets/icons/crB.svg';
 import crY from '../../assets/icons/crY.svg';
-
+import Delete from './deletereminder.js';
 
 export default class Event extends React.Component{
 	constructor(props){
