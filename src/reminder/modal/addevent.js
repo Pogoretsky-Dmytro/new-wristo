@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import addbtn from '../../assets/icons/add.svg';
-import AddReminder from './addreminder'
+import AddReminder from './addreminder';
+
 export default class AddEvent extends React.Component{
 	constructor(props){
 		super(props);
@@ -12,13 +13,15 @@ export default class AddEvent extends React.Component{
 		type: ""
 	}
   }
-  tooglemodal(boo){
-  	console.log("toogled ==")
-    this.setState(state => ({Modal: !state.Modal}))
+  tooglemodal(boo, plus, add){
+  	if(plus == true){
+  		console.log("trigged plus");
+  		this.setState(state => ({Modal: !state.Modal}))
 	    if(boo == true) {
 	    	this.props.onChange();
 	    	boo = false;
 	    }
+  	} else {console.log("false")};
   	}
 	render(){
 		let style
@@ -27,29 +30,10 @@ export default class AddEvent extends React.Component{
 		}else {
 			style = {display: "flex"};
 		}
-		return <div style={style} className="add-reminder" onClick={this.tooglemodal} >
+		return <div style={style} className="add-reminder" onClick={() => this.tooglemodal(false, true)}>
 		<img src={addbtn} />
-		{this.state.Modal && ReactDOM.createPortal(<AddReminder wid={this.props.id} gid={this.props.groupid} item={this.props.item}
+		{this.state.Modal && ReactDOM.createPortal(<AddReminder time={this.props.time} wid={this.props.id} gid={this.props.groupid} item={this.props.item}
        name={this.props.firstname} onClose={this.tooglemodal}/>, document.getElementById("portal"))}
 	</div>
 	}
-}
-
-class Hell extends React.Component {
-	constructor(props){
-		super(props);
-	}
-  render() {
-  	console.log(this.props)
-    return (
-      <div className="backdrop">
-        <div className="modal-rename">
-        <p>Delete group</p>
-          <div className="message">Do you realy want to delete reminder</div>
-          <div className="footer">
-          </div>
-        </div>
-      </div>
-    );
-  }
 }

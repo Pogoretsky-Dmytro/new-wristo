@@ -19,11 +19,13 @@ export class UserName extends React.Component{
 		type: ""
 	}
   }
-  tooglemodal(boo){
-    this.setState(state => ({isModalOpen: !state.isModalOpen}))
-    if(boo == true) {
-    	this.props.onChange();
-    	boo = false;
+  tooglemodal(boo, i, b = true){
+    if(b == true){
+    this.setState({isModalOpen: !this.state.isModalOpen})
+      if(boo == true) {
+        this.props.onChange();
+        boo = false;
+      }
     }
   }
 

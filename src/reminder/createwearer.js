@@ -140,19 +140,19 @@ class Createwearer extends React.Component{
 			}
 		})
 		this.state.filteredreminders.forEach(this.createevent);
-		this.state.monday.push(<AddEvent wearershow={this.props.wearershow} onChange={this.getReminders} lastname={this.props.lastname} 
+		this.state.monday.push(<AddEvent time={this.props.weekarray[0]} wearershow={this.props.wearershow} onChange={this.getReminders} lastname={this.props.lastname} 
 			url={this.props.url} id={this.props.id} groupid={this.props.groupid} firstname={this.props.firstname}/>);
-		this.state.tuesday.push(<AddEvent wearershow={this.props.wearershow} onChange={this.getReminders} lastname={this.props.lastname} 
+		this.state.tuesday.push(<AddEvent time={this.props.weekarray[1]} wearershow={this.props.wearershow} onChange={this.getReminders} lastname={this.props.lastname} 
 			url={this.props.url} id={this.props.id} groupid={this.props.groupid} firstname={this.props.firstname}/>);
-		this.state.wednesday.push(<AddEvent wearershow={this.props.wearershow} onChange={this.getReminders} lastname={this.props.lastname} 
+		this.state.wednesday.push(<AddEvent time={this.props.weekarray[2]} wearershow={this.props.wearershow} onChange={this.getReminders} lastname={this.props.lastname} 
 			url={this.props.url} id={this.props.id} groupid={this.props.groupid} firstname={this.props.firstname}/>);
-		this.state.thursday.push(<AddEvent wearershow={this.props.wearershow} onChange={this.getReminders} lastname={this.props.lastname} 
+		this.state.thursday.push(<AddEvent time={this.props.weekarray[3]} wearershow={this.props.wearershow} onChange={this.getReminders} lastname={this.props.lastname} 
 			url={this.props.url} id={this.props.id} groupid={this.props.groupid} firstname={this.props.firstname}/>);
-		this.state.friday.push(<AddEvent wearershow={this.props.wearershow} onChange={this.getReminders} lastname={this.props.lastname} 
+		this.state.friday.push(<AddEvent time={this.props.weekarray[4]} wearershow={this.props.wearershow} onChange={this.getReminders} lastname={this.props.lastname} 
 			url={this.props.url} id={this.props.id} groupid={this.props.groupid} firstname={this.props.firstname}/>);
-		this.state.saturday.push(<AddEvent wearershow={this.props.wearershow} onChange={this.getReminders} lastname={this.props.lastname} 
+		this.state.saturday.push(<AddEvent time={this.props.weekarray[5]} wearershow={this.props.wearershow} onChange={this.getReminders} lastname={this.props.lastname} 
 			url={this.props.url} id={this.props.id} groupid={this.props.groupid} firstname={this.props.firstname}/>);
-		this.state.sunday.push(<AddEvent wearershow={this.props.wearershow} onChange={this.getReminders} lastname={this.props.lastname} 
+		this.state.sunday.push(<AddEvent time={this.props.weekarray[6]} wearershow={this.props.wearershow} onChange={this.getReminders} lastname={this.props.lastname} 
 			url={this.props.url} id={this.props.id} groupid={this.props.groupid} firstname={this.props.firstname}/>);
 	}
 	render(){

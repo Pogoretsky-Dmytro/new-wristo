@@ -18,10 +18,6 @@ import WearersLoading from '../settings/wearer-settings/wearers-configuration-pa
 import Modal from "react-responsive-modal";
 import defaultavatar from '../settings/default_avatar.png'
 
-
-
-
-
 let reminders = [];
 class Reminder extends React.Component {
   constructor(props){

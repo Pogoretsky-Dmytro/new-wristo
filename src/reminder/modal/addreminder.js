@@ -72,6 +72,7 @@ export default class AddReminder extends React.Component {
   	this.setState({type: type});
   }
   addreminder(){
+    console.log("sent request")
   	let date;
   	for(let i = 0; i < this.state.alerts.length; i++){
 		date = `${this.state.yearstart}` + "-" + `${this.state.monthstart+1}` + "-" + `${this.state.daystart}`+"T"+this.state.alerts[i];
@@ -91,7 +92,7 @@ export default class AddReminder extends React.Component {
 			}
 	   	}).then(resp => {
 	   		if((i + 1) == this.state.alerts.length){
-  				this.props.onClose(true);
+  				this.props.onClose(true, true, true);
   		}
 	   	}).catch((error) => { 
 	        console.log("error", error);
@@ -102,11 +103,17 @@ export default class AddReminder extends React.Component {
   	this.refs.reminder.value = "";
   	this.setState({daystart: "", monthstart: "", yearstart: "", dayend: "", monthend: "", yearend: "", alerts: [], type: ""})
   }
+   componentWillMount(){
+    if(this.props.time){
+      this.setState({daystart: this.props.time.day, monthstart: this.props.time.month, yearstart: 2018,
+      dayend: this.props.time.day, monthend: this.props.time.month, yearend: 2018});
+    }
+  }
   render() {
   	let alert = this.state.alerts.map(this.createalert.bind(this));
     return (
       <div className="backdrop">
-        <div className="modal-edit">
+        <div className="modal-edit" onClick={() => this.props.onClose(false, true, false)}>
         <p>Add reminder to {this.props.name}</p>
           {this.props.children}
         <div className="edit-reminder">  
@@ -148,7 +155,7 @@ export default class AddReminder extends React.Component {
 	            <img src={delet} onClick={this.clearfields.bind(this)} />
 	        </div>
             <div>
-	            <button onClick={() => this.props.onClose(false)}>
+	            <button onClick={() => this.props.onClose(false, true, true)}>
 	              cancel
 	            </button>
 	            <button onClick={this.addreminder.bind(this)}>
