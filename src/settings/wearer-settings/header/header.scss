@@ -230,6 +230,10 @@ html, body{
 #backgroundRedirect ,.active {
     background-color: none;
 }
+
+.settings_header__profile__logo:hover{
+    cursor: pointer;
+}
 @media screen and (max-width: 530px) {
 
     .wearerList{
