@@ -15,12 +15,19 @@ const MyMapComponent = compose(
   withScriptjs,
   withGoogleMap
 )((props) =>
-  <GoogleMap defaultZoom={10} defaultCenter={{ lat: -34.397, lng: 150.644 }}>
-    <Marker position={{ lat: -34.397, lng: 150.644 }} />
-    <Marker position={{ lat: -34.380, lng: 150.550 }} />
-    <Marker position={{ lat: -34.397, lng: 150.594 }} />
+  <GoogleMap defaultZoom={13} defaultCenter={{ lat: -34.397, lng: 150.644 }}>
+    {array}
   </GoogleMap>
 )
+
+let array = [
+  <Marker position={{ lat: -34.397, lng: 150.644 }} />,
+  <Marker position={{ lat: -34.380, lng: 150.550 }} />, 
+  <Marker position={{ lat: -34.397, lng: 150.594 }} />,
+  <Marker position={{ lat: -34.397, lng: 150.570 }} />,
+  <Marker position={{ lat: -34.397, lng: 150.550 }} />
+]
+
 
 const mark = () => {
 	return <div style={style}>
@@ -40,7 +47,7 @@ render() {
 	return (
 	<div className="map">
 		<HeaderNoBtn header="Map"/>
-		<MyMapComponent />
+		<MyMapComponent hello="lol" />
 	</div>
 	);
 	}
