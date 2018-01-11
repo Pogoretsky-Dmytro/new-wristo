@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  withRouter
-} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link, Redirect, withRouter} from 'react-router-dom';
+import axios from 'axios';
+
+import RenameGroup from './modals/rename';
+import Delete from './modals/delete';
+import Duplicate from './modals/duplicate';
+import NewGroup from './modals/newgroup';
+import Modal from './modals/deletewearer';
+
 import Contacts from '../contacts/contacts';
 import MapContainer from '../maps/google-map';
 import AddGroup from '../groups/addGroup';
@@ -14,7 +16,6 @@ import '../maps/maps.scss';
 import './masterpage.scss';
 import Notifications from '../notifications/notifications'
 import List from '../contacts/List';
-import axios from 'axios';
 import Header from "../../settings/wearer-settings/header/header";
 import WearersLoading from '../../settings/wearer-settings/wearers-configuration-page/wearer-loading.js';
 
@@ -37,8 +38,8 @@ class MasterPage extends React.Component{
 			newGroup: false,
 			toedit: "",
 			redirectToLogin: null,
-      accesstoken: null,
-      uid: null,
+      		accesstoken: null,
+      		uid: null,
 			client: null,
 		};
 		this.onchangestate = this.onchangestate.bind(this);
@@ -50,16 +51,13 @@ class MasterPage extends React.Component{
 		this.listClick = this.listClick.bind(this);
 		this.redirectToLogin = this.redirectToLogin.bind(this);
 		this.getAlert = this.getAlert.bind(this);
-		//this.renamegroup = this.renamegroup.bind(this);
 	}
 
-	componentWillUnmount(){
-
-	console.log('unmount')
+componentWillUnmount(){
 	clearInterval(this.state.interval)
-	}
+}
 
-	componentWillMount() {
+componentWillMount() {
 	this.state.interval = setInterval(() => this.getAlert(), 2000);
   if( sessionStorage.getItem("accesstoken") !== null && sessionStorage.getItem("uid") !== null && sessionStorage.getItem("client") !== null){
 		this.setState({
@@ -71,21 +69,18 @@ class MasterPage extends React.Component{
 };
 
  getAlert(){
-	axios({
-		method: 'post',
-		url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/auth/sign_in ',
-		data: {
-			"email": "myrko.ua2012@gmail.com",
-			"password": "11111111"
-			}
-			
-	 }).then(response => {
-		 console.log(response)
-
-	},error => { 
-		console.log(error);
-	}
-	)
+	// axios({
+	// 	method: 'post',
+	// 	url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/alerts',	
+	// 	headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
+ 	// 	'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
+	//  responseType: 'json'		
+	// }).then(
+	// 	response => {
+	// 		console.log(response)},
+	// 	error => { 
+	// 		console.log(error)}
+	// )
  }
 
 componentDidMount(){
@@ -267,291 +262,3 @@ render(){
 }
 
 export default MasterPage;
-
-class Modal extends React.Component {
-	constructor(props){
-		super(props);
-	}
-	deletewearer(){
-		this.props.deleteListItem();
-		this.props.onchangestate();
-	}
-	handleClick(e){
-		if(e.target.className == "backdrop") {
-			this.props.onchangestate();
-    	}
-	}
-  render() {
-    return (
-      <div className="backdrop" onClick={this.handleClick.bind(this)}>
-        <div className="modal">
-        <p>Delete member</p>
-          {this.props.children}
-          <div className="message">Are you sure you want to delete the wearer {this.props.todelete} <br/> from {this.props.group}?</div>
-          <div className="footer">
-            <button onClick={this.props.onchangestate}>
-              cancel
-            </button>
-            <button onClick={this.deletewearer.bind(this)}>
-              accept
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-class RenameGroup extends React.Component {
-	constructor(props){
-		super(props);
-		this.setName = this.setName.bind(this);
-		this.state = {
-			newname: ""
-		}
-	}
-	renamegroup(){
-		this.props.onchangestate("rename");
-	}
-	setName(){
-		this.state.newname = this.textInput.value;
-	}
-	componentDidMount(){
-		this.textInput.focus();
-	}
-	changename(e){
-		e.preventDefault();
-		axios({
-		 	method: 'put',
-		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/' + this.props.id,
-		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	        'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
-		    responseType: 'json',
-		    data: {"name": this.state.newname}
-	 	}).then(res => {
-	 		//this.props.onchange(this.state.newname)
-	 		this.props.reloadgroup();
-	 		this.props.onchangestate("rename");	
-        }).catch(function (error) {
-            console.log(error);
-        })
-	}
-	handleClick(e){
-		if(e.target.className == "backdrop") {
-			this.props.onchangestate("rename");
-    	}
-	}
-  render() {
-    return (
-      <div className="backdrop" onClick={this.handleClick.bind(this)}>
-        <div className="modal-rename">
-        <p>Rename Group</p>
-          {this.props.children}
-          <div className="message">Please enter new name of group {this.props.torename}.</div>
-          <form onSubmit={this.changename.bind(this)}>
-          	<input type="text" maxlength="30" ref={(input) => { this.textInput = input; }} onChange={this.setName}/>
-          </form>	
-          <div className="footer">
-            <button onClick={this.renamegroup.bind(this)}>
-              cancel
-            </button>
-            <button onClick={this.changename.bind(this)}>
-              accept
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-class Delete extends React.Component {
-	constructor(props){
-		super(props);
-	}
-	renamegroup(){
-		this.props.onchangestate("delete");
-	}
-	delete(e){
-		e.preventDefault();
-		axios({
-		 	method: 'delete',
-		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/' + this.props.id,
-		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	        'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
-		    responseType: 'json'
-		}).then(res => {
-			console.log("success  !!")
-	 		this.props.reloadgroup();
-	 		this.props.onchangestate("delete");	
-        }).catch(function (error) {
-            console.log(error);
-        })
-	}
-	handleClick(e){
-		if(e.target.className == "backdrop") {
-			this.props.onchangestate("delete");
-    	}
-	}
-  render() {
-    return (
-      <div className="backdrop" onClick={this.handleClick.bind(this)}>
-        <div className="modal-rename">
-        <p>Delete group</p>
-          {this.props.children}
-          <div className="message">Do you realy want to delete group {this.props.todelete}.</div>
-          <div className="footer">
-            <button onClick={this.renamegroup.bind(this)}>
-              cancel
-            </button>
-            <button onClick={this.delete.bind(this)}>
-              accept
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-class Duplicate extends React.Component {
-	constructor(props){
-		super(props);
-		this.state = {
-			newGroup: ""
-		}
-		this.makecopy = this.makecopy.bind(this);
-	}
-	renamegroup(){
-		this.props.onchangestate("duplicate");
-	}
-	makecopy(data){
-		for(let i = 0; i < data.length; i++){
-			axios({
-		 	method: 'post',
-		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/'+this.state.newGroup+'/wearers ',
-		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	        'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
-		    responseType: 'json',
-		    data: 
-		    {
-			  "wearer_id": data[i].id,
-			  "group_id": this.state.newGroup
-			}
-		}).catch(error => {
-			console.log(error);
-		})
-		}
-	}
-	duplicate(e){
-		e.preventDefault();
-		axios({
-		 	method: 'post',
-		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups',
-		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	        'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
-		    responseType: 'json',
-		    data: {"name": this.props.todelete}
-		}).then(response => {
-	 		this.props.reloadgroup();
-	 		this.props.onchangestate("duplicate");
-	 		this.state.newGroup = response.data.id;
-        }).then(response => {
-        	axios({
-		    method: 'get',
-		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/' + this.props.id + '/wearers',
-		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	      	'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
-		    responseType: 'json'
-		   	}).then(response => {
-		   		this.makecopy(response.data)
-		    }).catch((error) => { 
-		        console.log(error);
-		    });
-        }).catch(function (error) {
-            console.log(error);
-        })
-	}
-	handleClick(e){
-		if(e.target.className == "backdrop") {
-			this.props.onchangestate("duplicate");
-    	}
-	}
-  render() {
-    return (
-      <div className="backdrop" onClick={this.handleClick.bind(this)}>
-        <div className="modal-rename">
-        <p>Duplicate group</p>
-          {this.props.children}
-          <div className="message">Do you realy want to duplicate group {this.props.todelete}.</div>
-          <div className="footer">
-            <button onClick={this.renamegroup.bind(this)}>
-              cancel
-            </button>
-            <button onClick={this.duplicate.bind(this)}>
-              accept
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-class NewGroup extends React.Component {
-	constructor(props){
-		super(props);
-		this.setName = this.setName.bind(this);
-		this.state = {
-			newname: ""
-		}
-	}
-	renamegroup(){
-		this.props.onchangestate("new");
-	}
-	setName(){
-		this.state.newname = this.textInput.value;
-	}
-	componentDidMount(){
-		this.textInput.focus();
-	}
-	changename(e){
-		e.preventDefault();
-		axios({
-		 	method: 'post',
-		    url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/',
-		    headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
-	        'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
-		    responseType: 'json',
-		    data: {"name": this.state.newname}
-	 	}).then(res => {
-	 		this.props.reloadgroup();
-	 		this.props.onchangestate("new");	
-        }).catch(function (error) {
-            console.log(error);
-        })
-	}
-	handleClick(e){
-		if(e.target.className == "backdrop") {
-			this.props.onchangestate("new");
-    	}
-	}
-  render() {
-    return (
-      <div className="backdrop" onClick={this.handleClick.bind(this)}>
-        <div className="modal-rename">
-        <p>New Group</p>
-          {this.props.children}
-          <div className="message">Please enter  name of new group.</div>
-          <form onSubmit={this.changename.bind(this)}>
-          	<input type="text"  ref={(input) => { this.textInput = input; }} onChange={this.setName}/>
-          </form>	
-          <div className="footer">
-            <button onClick={this.renamegroup.bind(this)}>
-              cancel
-            </button>
-            <button onClick={this.changename.bind(this)}>
-              accept
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}

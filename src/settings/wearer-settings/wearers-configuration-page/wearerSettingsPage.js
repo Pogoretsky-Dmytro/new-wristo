@@ -274,7 +274,6 @@ getWearers(event){
 };
 
 updateWearer(event){
-  console.log('evwnt weaerer data', event)
   axios({
       method: 'put',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/wearers/${event.id}`,
@@ -625,7 +624,6 @@ deleteMember(groups, wearerId){
 
  resetWearerEdit(){
     this.setState({wearersEditing: false});
-    console.log('enableWearerEdit this.state.wearersEditing', this.state.wearersEditing);
   };
 
   redirectToLogin() {          

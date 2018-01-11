@@ -34,9 +34,6 @@ class WearerProfile extends React.Component{
   }
 
     render(){
-
-      console.log('wearerProfile wearersData', this.props.wearersData);
-
         let groups = null;
         let groupList = null;
         let emptyGroupList = '-';
