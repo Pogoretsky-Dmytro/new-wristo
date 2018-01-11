@@ -46,10 +46,15 @@
     "webpack-dev-server": "^2.9.3"
   },
   "dependencies": {
+    "bufferutil": "3.0.3",
     "classnames": "^2.2.5",
     "moment": "^2.20.1",
     "react-datetime": "^2.11.1",
     "react-input-range": "^1.2.2",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "socket.io-client": "^2.0.4",
+    "utf-8-validate": "4.0.0",
+    "websocket": "^1.0.25",
+    "ws": "4.0.0"
   }
 }
