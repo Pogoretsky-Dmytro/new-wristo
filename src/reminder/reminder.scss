@@ -1,6 +1,8 @@
 .reminders .navigation ul li:nth-child(2) {background-color: #a1a1a1;}
 .switch-wearers .add-group .dropdown{display: none;}
-.switch-wearers > div {padding-left: 10px; padding-bottom: 10px;}
+.switch-wearers .add-group  {max-width: 440px;width: 440px;}
+.switch-wearers .add-group > div {margin-top: 0;}
+.switch-wearers > div {padding: 10px;}
 
 .reminders .switch-date p, .reminders .user-name p, .reminders .change-week p{
   font-size: 13px;
@@ -34,14 +36,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40px;
   & img {
     height: 25px;
     width: 25px;
     border-radius: 50%;
   }
   & p {
-    color: #A1827F;
+    text-align: center;
+    color: #C0C0C0;
     margin-left: 10px;
     font-size: 17px;
     font-family: "DINPro-Medium"
@@ -83,8 +85,13 @@
   position: absolute;
   background-color: #fff;
   z-index: 1;
-  &::-webkit-scrollbar{
-    display: none;
+  &::-webkit-scrollbar {
+      width: 4px;
+  }
+  &::-webkit-scrollbar-button {display: none;}
+  &::-webkit-scrollbar-track {} 
+  &::-webkit-scrollbar-thumb {
+      background-color: rgb(196, 0, 80);
   }
 }
 
@@ -109,8 +116,9 @@
   display: flex; 
   align-items: center; 
   margin-right: 30px;
+  width: 440px;
 }
-.switch-wearers > div:nth-of-type(3){
+.switch-wearers > div:nth-of-type(4){
 	display: flex;
 	align-items: center;
 }
@@ -119,6 +127,9 @@
   margin-left: 20px;
   width: 200px;
   position: relative;
+  & form {
+    margin-top: 0;
+  }
 }
 .search input {
   border-radius: 3px;
@@ -454,14 +465,13 @@
     align-items: center;
     & .user-image{display: none;}
     & > div:nth-of-type(2){justify-content: center;}
-    & > div:nth-of-type(3){
+    & > div:nth-of-type(4){
       margin-right: 0;
       display: flex;
       justify-content: space-around;
       width: 100%;
-      padding-left: 0;
       & > div {
-        width: 48%;
+        width: 100%;
       }
     }
   }
@@ -511,13 +521,16 @@
   }
 }
 @media screen and (max-width: 512px) {
+  .switch-wearers .add-group {
+    width: 100%;
+    justify-content: center;
+  }
   .switch-wearers {
-    & > div:nth-of-type(3){
+    & > div:nth-of-type(4){
       margin-right: 0;
       display: flex;
       justify-content: space-around;
       width: 100%;
-      padding-left: 0;
       & > div {
         width: 98%;
       }
@@ -546,9 +559,8 @@
   .modal-edit :first-child{padding-top: 0;}
   .setdate .rdt{left: 2px;}
   .modal-edit .start p, .modal-edit .end p{width: 90%;}
-  .switch-wearers > div:nth-of-type(3){
+  .switch-wearers > div:nth-of-type(4){
     margin-right: 0;
-    padding-left: 0;
     flex-direction: column;
     justify-content: flex-start;
     & .search {

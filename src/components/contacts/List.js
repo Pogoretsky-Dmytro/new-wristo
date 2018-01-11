@@ -48,6 +48,7 @@ class List extends React.Component {
   render() {
     var todoEntries = this.props.toshow;
     var listItems = todoEntries.map(this.createTasks);
+    console.log(this.props.toshow)
     return (
       <div className="contacts">
        {this.state.isModalOpen && ReactDOM.createPortal(<AddWearer reload={this.props.reloadwearers} id={this.props.id} group={this.props.group} onClose={this.tooglemodal.bind(this)} misswearers={this.props.toshow}/>, document.getElementById("portal"))}

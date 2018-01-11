@@ -212,18 +212,20 @@ render(){
 			}}/> : this.state.redirectToLogin === false ?
 		<div className="reminders">
 		<Header redirectToLogin = {this.redirectToLogin}/>
-			<div className="wearericon" style={{display: "flex"}}>
-					<img src={this.state.wearerimg} style={{display: this.state.wearername !== "All wearers" ? "flex" : "none"}}/>
-					<p>{this.state.wearername}</p>
-			</div>
 			<div className="switch-wearers">
 				<div className="add-group" style={{display: this.state.wearername == "All wearers" ? "flex" : "none"}}>
 					{listOfGroups}
 				</div>
-				<div class="return-to-wearers" onClick={() => this.switchwearer({full_name: "All wearers", id: 0})} style={{display: this.state.wearername !== "All wearers" ? "flex" : "none"}}>
+				<div className="return-to-wearers" onClick={() => this.switchwearer({full_name: "All wearers", id: 0})} style={{display: this.state.wearername !== "All wearers" ? "flex" : "none"}}>
 					<img src={arrow}/>
 					<p>Back to All Wearers</p>
 				</div>
+
+				<div className="wearericon" style={{display: "flex"}}>
+					<img src={this.state.wearerimg} style={{display: this.state.wearername !== "All wearers" ? "flex" : "none"}}/>
+					<p>{this.state.wearername}</p>
+				</div>
+
 				<div>
 					<div className="user-image"><img src={userImage}/></div>
 					<div className="combobox">
@@ -233,10 +235,12 @@ render(){
 						All users</li>{listWearers}</ul>
 					</div>
 					<div className="search">
-						  <input placeholder="Search" className="input" ref="reminder" value={this.state.eventfilter} onChange={this.findreminder.bind(this)}/>
+					<form onSubmit={() => this.ch({title: this.refs.reminder.value})} onChange={this.findreminder.bind(this)}>
+						  <input placeholder="Search" className="input" ref="reminder" value={this.state.eventfilter}/>
 						  <ul className="reminderslist">
 						  {createreminders}
 						  </ul>
+					</form>
 					</div>
 				</div>
 			</div>
