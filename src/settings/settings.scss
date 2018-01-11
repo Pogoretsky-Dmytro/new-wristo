@@ -387,6 +387,9 @@ input {
       li {
         display: flex;
         flex-direction: row;
+        padding-bottom: 8px;
+        color: #5A5A5A;
+        font-family: DINPro-Regular;
 
         button{
           margin-right: 10px;
@@ -873,6 +876,10 @@ input {
 }
 
 @media only screen and (max-width: 950px)  {
+
+  .wearerConfigWrap{
+    padding-left: 0;  
+  }
   
   .wearer-profile-wrapper {
     flex-direction: column;
@@ -887,6 +894,7 @@ input {
 }
 
 @media only screen and (max-width: 599px) {
+ 
 
   .input-range{
     width: 272px;

@@ -130,15 +130,26 @@
 
 }
 
+// .wearerList{
+//     overflow: auto;
+//     max-height: 377px;
+
+// }
 .wearerList{
     overflow: auto;
-    max-height: 190px;
-
+    max-height: 377px;
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+    &::-webkit-scrollbar-button {display: none;}
+    &::-webkit-scrollbar-track {}   
+    &::-webkit-scrollbar-thumb {
+        background-color: rgb(196, 0, 80);
+    }
 }
-
-.wearerList::-webkit-scrollbar { 
-    display: none; 
-}
+// .wearerList::-webkit-scrollbar { 
+//     display: none; 
+// }
 
 .addWearerButton{
     width: 100%;
@@ -163,3 +174,4 @@
 }
 
 
+.wearerList li:hover { cursor: pointer; }

@@ -7,39 +7,31 @@ import {
   Link
 } from 'react-router-dom';
 
+
 class WearerProfile extends React.Component{ 
   constructor(props) {
     super(props);
     this.state ={
-      wearersData: this.props.wearersData
+      wearersData: this.props.wearersData,
+      keyUrlImage: null,
+      img: null
     }
+  //  this.updateImage = this.updateImage.bind(this);
   };
 
 
-  // shouldComponentUpdate(nextProps, nextState){
-
-  //   console.log("this.props.wearersData", this.props.wearersData);
-  //   console.log("nextProps.wearersData", nextProps.wearersData);
-
-  //   console.log('nextState', nextState);
-    
-
-  //   if(this.state.wearersData === nextProps.wearersData){
-  //     return false
-  //   }
-  //   else return true
-  // }
-
   componentWillReceiveProps(nextProps){
-   // debugger
-   // if(nextProps.wearersData){this.props.wearersData = nextProps.wearersData}
 
-   // debugger
+    // this.getBase64Image(this.img);
+    // console.log('IMG OBJ',this.getBase64Image(this.img));
+    
+  
     this.setState({
-      wearersData : nextProps.wearersData
+      wearersData : nextProps.wearersData,
+      keyUrlImage: new Date().getTime()
+
     })
   }
-
 
     render(){
 
@@ -71,7 +63,7 @@ class WearerProfile extends React.Component{
           </div>
           <div className="wearerProfile__info">
             <div className="wearerProfile__image">
-              <img src={this.state.wearersData.image.url} className="avatar-edit" alt='' width="196" height="216"/>
+              <img key={this.state.keyUrlImage} src={wearer.image.url} className="avatar-edit" alt='' width="196" height="216" onChange={this.reload} ref={(img) => { this.img = img; }}/>
             </div>
             
             <div className="wearerProfile__info__table">

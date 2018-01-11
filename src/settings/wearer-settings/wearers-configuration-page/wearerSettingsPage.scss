@@ -25,11 +25,13 @@
 @media only screen and (max-width : 1224px) {
 /* Styles */
 
-
+.wearerList{
+	max-height: 190px;
+}
 
 	.wearerConfigWrap {
 		width: 98%;
-		padding-left: 2%;
+		padding-left: 0;
 	}
 }
 

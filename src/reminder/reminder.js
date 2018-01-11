@@ -51,13 +51,15 @@ class Reminder extends React.Component {
 
 componentWillMount(){
   if( sessionStorage.getItem("accesstoken") !== null && sessionStorage.getItem("uid") !== null && sessionStorage.getItem("client") !== null){
+	//	location.reload();
 		this.setState({
 			client: sessionStorage.getItem("client"),
 			accesstoken: sessionStorage.getItem("accesstoken"),
 			uid: sessionStorage.getItem("uid"),
 		})  
-		} 
+		}
 }
+
 
 addGroup(item){
 	let clas;

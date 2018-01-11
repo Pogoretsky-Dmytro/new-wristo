@@ -230,7 +230,17 @@ html, body{
 #backgroundRedirect ,.active {
     background-color: none;
 }
+
+.settings_header__profile__logo:hover{
+    cursor: pointer;
+}
 @media screen and (max-width: 530px) {
+
+    .wearerList{
+
+        max-height: 190px;
+    
+    }
 
     .sign_Page .wrap, .sign_Page .wrapUp{
         width: 96%;
@@ -248,8 +258,21 @@ html, body{
         width: 100%;
     }
 }
-@media screen and (max-width: 485px) {
+@media screen and (min-width: 320px) and (max-width: 485px) {
     .add-group > div {
         padding: 3px 14px;
     }
+
+    .wearers-list-wrap{
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .contentWrap {
+        margin: 14px 5px;
+      }
+
+      .wearers .wearerList{
+        max-height: 190px;
+      }
 }
