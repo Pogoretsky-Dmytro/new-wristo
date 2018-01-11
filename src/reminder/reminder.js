@@ -217,8 +217,10 @@ render(){
 					{listOfGroups}
 				</div>
 				<div className="return-to-wearers" onClick={() => this.switchwearer({full_name: "All wearers", id: 0})} style={{display: this.state.wearername !== "All wearers" ? "flex" : "none"}}>
-					<img src={arrow}/>
-					<p>Back to All Wearers</p>
+					<div>
+						<img src={arrow}/>
+						<p>Back to All Wearers</p>
+					</div>
 				</div>
 
 				<div className="wearericon" style={{display: "flex"}}>

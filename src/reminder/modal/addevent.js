@@ -14,6 +14,7 @@ export default class AddEvent extends React.Component{
 	}
   }
   tooglemodal(boo, plus, add){
+  	console.log(plus)
   	if(plus == true){
   		console.log("trigged plus");
   		this.setState(state => ({Modal: !state.Modal}))

@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
   Route,
@@ -257,9 +258,14 @@ class Modal extends React.Component {
 		this.props.deleteListItem();
 		this.props.onchangestate();
 	}
+	handleClick(e){
+		if(e.target.className == "backdrop") {
+			this.props.onchangestate();
+    	}
+	}
   render() {
     return (
-      <div className="backdrop">
+      <div className="backdrop" onClick={this.handleClick.bind(this)}>
         <div className="modal">
         <p>Delete member</p>
           {this.props.children}
@@ -311,9 +317,14 @@ class RenameGroup extends React.Component {
             console.log(error);
         })
 	}
+	handleClick(e){
+		if(e.target.className == "backdrop") {
+			this.props.onchangestate("rename");
+    	}
+	}
   render() {
     return (
-      <div className="backdrop">
+      <div className="backdrop" onClick={this.handleClick.bind(this)}>
         <div className="modal-rename">
         <p>Rename Group</p>
           {this.props.children}
@@ -357,9 +368,14 @@ class Delete extends React.Component {
             console.log(error);
         })
 	}
+	handleClick(e){
+		if(e.target.className == "backdrop") {
+			this.props.onchangestate("delete");
+    	}
+	}
   render() {
     return (
-      <div className="backdrop">
+      <div className="backdrop" onClick={this.handleClick.bind(this)}>
         <div className="modal-rename">
         <p>Delete group</p>
           {this.props.children}
@@ -435,9 +451,14 @@ class Duplicate extends React.Component {
             console.log(error);
         })
 	}
+	handleClick(e){
+		if(e.target.className == "backdrop") {
+			this.props.onchangestate("duplicate");
+    	}
+	}
   render() {
     return (
-      <div className="backdrop">
+      <div className="backdrop" onClick={this.handleClick.bind(this)}>
         <div className="modal-rename">
         <p>Duplicate group</p>
           {this.props.children}
@@ -488,9 +509,14 @@ class NewGroup extends React.Component {
             console.log(error);
         })
 	}
+	handleClick(e){
+		if(e.target.className == "backdrop") {
+			this.props.onchangestate("new");
+    	}
+	}
   render() {
     return (
-      <div className="backdrop">
+      <div className="backdrop" onClick={this.handleClick.bind(this)}>
         <div className="modal-rename">
         <p>New Group</p>
           {this.props.children}

@@ -21,7 +21,7 @@ export class UserName extends React.Component{
   }
   tooglemodal(boo, i, b = true){
     if(b == true){
-    this.setState({isModalOpen: !this.state.isModalOpen})
+      this.setState({isModalOpen: !this.state.isModalOpen})
       if(boo == true) {
         this.props.onChange();
         boo = false;

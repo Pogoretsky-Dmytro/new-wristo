@@ -48,7 +48,6 @@ class List extends React.Component {
   render() {
     var todoEntries = this.props.toshow;
     var listItems = todoEntries.map(this.createTasks);
-    console.log(this.props.toshow)
     return (
       <div className="contacts">
        {this.state.isModalOpen && ReactDOM.createPortal(<AddWearer reload={this.props.reloadwearers} id={this.props.id} group={this.props.group} onClose={this.tooglemodal.bind(this)} misswearers={this.props.toshow}/>, document.getElementById("portal"))}
@@ -137,12 +136,17 @@ class AddWearer extends React.Component {
       console.log(error);
     });
   }
+  handleClick(e){
+    if(e.target.className == "backdrop") {
+      this.props.onClose();
+    }
+  }
   render() {
     if(this.state.wearers && this.state.rerender == true){
         this.filterwearers(this.state.wearers)
     }
     return (
-      <div className="backdrop">
+      <div className="backdrop" onClick={this.handleClick.bind(this)}>
         <div className="modal-addgroup">
         <p>Adding wearer to group</p>
           {this.props.children}

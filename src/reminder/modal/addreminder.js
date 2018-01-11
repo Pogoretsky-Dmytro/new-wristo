@@ -95,10 +95,15 @@ export default class AddReminder extends React.Component {
       dayend: this.props.time.day, monthend: this.props.time.month, yearend: 2018});
     }
   }
+  handleClick(e){
+    if(e.target.className == "backdrop") {
+      this.props.onClose(false, true, true)
+    }
+  }
   render() {
   	let alert = this.state.alerts.map(this.createalert.bind(this));
     return (
-      <div className="backdrop">
+      <div className="backdrop" onClick={this.handleClick.bind(this)}>
         <div className="modal-edit" onClick={() => this.props.onClose(false, true, false)}>
         <p>Add reminder to {this.props.name}</p>
           {this.props.children}
