@@ -11,7 +11,7 @@ weekday[4] = "Friday";
 weekday[5] = "Saturday";
 weekday[6] =  "Sunday";
 
-var month = new Array();
+export var month = new Array();
 month[0] = "JAN";
 month[1] = "FEB";
 month[2] = "MAR";

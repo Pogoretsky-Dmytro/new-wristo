@@ -161,7 +161,7 @@ class Createwearer extends React.Component{
 			this.state.style[1] = {width: "12%"} 
 		}else {
 			this.state.style[0] = {display: "none"}
-			this.state.style[1] = {width: "14.2857143%", maxHeight: "100%"}
+			this.state.style[1] = {width: "14.2857143%"}
 		}
 		if(this.state.done){
 			return (

@@ -218,8 +218,19 @@
   width: 16%;
   display: flex;
   align-items: flex-start;
-  padding-top: 10px;
   justify-content: space-between;
+  & > div:last-of-type{
+    margin-right: 10px;
+    margin-top: 10px;
+   & img {
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 2px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+  }
+  }
 }
 .calendar .user img{
   width: 20px;
@@ -245,6 +256,7 @@
 .calendar .user .user-name div:first-of-type{
   display: flex;
   margin-left: 5px;
+  margin-top: 7px;
   align-items: center;
 }
 .calendar .user .user-name div:first-of-type img{
@@ -422,8 +434,6 @@
 @media screen and (max-width: 970px) {
   .reminders .events .dayevents img:first-of-type{display: none;}
   .calendar .user .user-name{
-    flex-direction: column;
-    justify-content: flex-start;
     & > div:last-child {
       margin-top: 10px;
       margin-left: 5px;

@@ -34,7 +34,7 @@ export class UserName extends React.Component{
 		<div className="user-name" style={this.props.style}>
 			<div><img src={this.props.url ? this.props.url : defaulticon} alt=""/><p>{this.props.firstname}<br/>{this.props.lastname}</p></div>	
 			<div><img className="edit" src={edit} alt="" onClick={this.tooglemodal}/></div>
-			{this.state.isModalOpen && ReactDOM.createPortal(<AddReminder wid={this.props.id} gid={this.props.groupid} item={this.props.item}
+			{this.state.isModalOpen && ReactDOM.createPortal(<AddReminder time="" wid={this.props.id} gid={this.props.groupid} item={this.props.item}
        name={this.props.firstname} onClose={this.tooglemodal}/>, document.getElementById("portal"))}
 		</div>
 	)
