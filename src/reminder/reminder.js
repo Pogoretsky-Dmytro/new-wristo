@@ -16,7 +16,8 @@ import {
 } from 'react-router-dom';
 import WearersLoading from '../settings/wearer-settings/wearers-configuration-page/wearer-loading.js';
 import Modal from "react-responsive-modal";
-import defaultavatar from '../settings/default_avatar.png'
+import defaultavatar from '../settings/default_avatar.png';
+import arrow from '../assets/icons/back-arrow.svg';
 
 let reminders = [];
 class Reminder extends React.Component {
@@ -218,8 +219,12 @@ render(){
 					<p>{this.state.wearername}</p>
 			</div>
 			<div className="switch-wearers">
-				<div className="add-group">
+				<div className="add-group" style={{display: this.state.wearername == "All wearers" ? "flex" : "none"}}>
 					{listOfGroups}
+				</div>
+				<div class="return-to-wearers" onClick={() => this.switchwearer({full_name: "All wearers", id: 0})} style={{display: this.state.wearername !== "All wearers" ? "flex" : "none"}}>
+					<img src={arrow}/>
+					<p>Back to All Wearers</p>
 				</div>
 				<div>
 					<div className="user-image"><img src={userImage}/></div>

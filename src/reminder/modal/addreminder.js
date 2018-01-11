@@ -4,21 +4,7 @@ import calendarimg from '../../assets/icons/today.svg';
 import addbtn from '../../assets/icons/add.svg';
 import Calendar from 'react-datetime';
 import axios from 'axios';
-
-
-var month = new Array();
-month[0] = "JAN";
-month[1] = "FEB";
-month[2] = "MAR";
-month[3] = "APR";
-month[4] = "MAY";
-month[5] = "JUN";
-month[6] = "JUL";
-month[7] = "AUG";
-month[8] = "SEP";
-month[9] = "OCT";
-month[10] = "NOV";
-month[11] = "DEC";
+import {month} from '../calendar';
 
 export default class AddReminder extends React.Component {
   constructor(props){

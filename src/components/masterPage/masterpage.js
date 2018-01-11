@@ -38,7 +38,7 @@ class MasterPage extends React.Component{
 			redirectToLogin: null,
       accesstoken: null,
       uid: null,
-      client: null
+			client: null,
 		};
 		this.onchangestate = this.onchangestate.bind(this);
 		this.deleteListItem = this.deleteListItem.bind(this);
@@ -48,18 +48,18 @@ class MasterPage extends React.Component{
 		this.onGroupClick = this.onGroupClick.bind(this);
 		this.listClick = this.listClick.bind(this);
 		this.redirectToLogin = this.redirectToLogin.bind(this);
+		this.getAlert = this.getAlert.bind(this);
 		//this.renamegroup = this.renamegroup.bind(this);
 	}
 
-// componentWillMount(){
-// 	//if(fakeAuth.isAuthenticated == false)browserHistory.push('/login');
-// }
-componentWillMount() {
-	// const master = {
-  //   accesstoken: sessionStorage.getItem("accesstoken"),
-  //   client: sessionStorage.getItem("client"),
-  //   uid: sessionStorage.getItem("uid")
-  // }
+	componentWillUnmount(){
+
+	console.log('unmount')
+	clearInterval(this.state.interval)
+	}
+
+	componentWillMount() {
+	this.state.interval = setInterval(() => this.getAlert(), 2000);
   if( sessionStorage.getItem("accesstoken") !== null && sessionStorage.getItem("uid") !== null && sessionStorage.getItem("client") !== null){
 		this.setState({
 			client: sessionStorage.getItem("client"),
@@ -68,6 +68,24 @@ componentWillMount() {
 		})  
 		} 
 };
+
+ getAlert(){
+	axios({
+		method: 'post',
+		url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/auth/sign_in ',
+		data: {
+			"email": "myrko.ua2012@gmail.com",
+			"password": "11111111"
+			}
+			
+	 }).then(response => {
+		 console.log(response)
+
+	},error => { 
+		console.log(error);
+	}
+	)
+ }
 
 componentDidMount(){
 	this.getGroups();

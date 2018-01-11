@@ -23,7 +23,7 @@ render(){
 			<div className="events">
 				<AddEvent event="Emergency button activated." time="2 mins ago" name="ostap" link="https://wristoapp.s3.amazonaws.com/staging/uploads/wearer/image/150/image.png"/>
 				<AddEvent event="Emergency button activated." time="9:15 AM" name="DartvEIDER" link="https://wristoapp.s3.amazonaws.com/staging/uploads/wearer/image/151/image.png"/>
-				<AddEvent event="Fall sensor activated." time=" 8:25 AM" name="nastya" link="https://wristoapp.s3.amazonaws.com/staging/uploads/wearer/image/75/image.jpeg"/>
+				<AddEvent event="Fall sensor activated." time=" 8:25 AM" name="nastya" link="https://wristoapp.s3.amazonaws.com/staging/uploads/wearer/image/75/image.png"/>
 				<AddEvent event="Fall sensor activated." time=" 10:30 PM" name="vika" link="https://wristoapp.s3.amazonaws.com/staging/uploads/wearer/image/80/image.jpeg"/>
 			</div>
 			<div className="showAll">
