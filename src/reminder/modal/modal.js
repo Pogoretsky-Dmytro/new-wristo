@@ -20,6 +20,7 @@ export class UserName extends React.Component{
 	}
   }
   tooglemodal(boo, i, b = true){
+    console.log("toogled pen", b);
     if(b == true){
       this.setState({isModalOpen: !this.state.isModalOpen})
       if(boo == true) {

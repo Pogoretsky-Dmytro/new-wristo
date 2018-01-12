@@ -5,6 +5,9 @@ import {HeaderTwoBtnm, HeaderThreeBtn, HeaderNoBtn} from '../otherComponents/hea
 import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, OverlayView} from "react-google-maps"
 
+import {latArray} from '../masterPage/masterpage';
+
+
 const MyMapComponent = compose(
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBla7cldJeOqMXD4xPNcARqmGRPB-YQOZs&v=3.exp&libraries=geometry,drawing,places",
@@ -15,25 +18,12 @@ const MyMapComponent = compose(
   withScriptjs,
   withGoogleMap
 )((props) =>
-  <GoogleMap defaultZoom={13} defaultCenter={{ lat: -34.397, lng: 150.644 }}>
-    {array}
+  <GoogleMap defaultZoom={11} defaultCenter={{ lat: 49.8357, lng: 24.059 }}>
+    <Marker position={{ lat: props.lan, lng: props.lng }}/>
   </GoogleMap>
 )
 
-let array = [
-  <Marker position={{ lat: -34.397, lng: 150.644 }} />,
-  <Marker position={{ lat: -34.380, lng: 150.550 }} />, 
-  <Marker position={{ lat: -34.397, lng: 150.594 }} />,
-  <Marker position={{ lat: -34.397, lng: 150.570 }} />,
-  <Marker position={{ lat: -34.397, lng: 150.550 }} />
-]
-
-
-const mark = () => {
-	return <div style={style}>
-		hello
-	</div>
-}
+let array = [{ lat: 0, lng: 0 }]
 
 const key = "AIzaSyBla7cldJeOqMXD4xPNcARqmGRPB-YQOZs"
 const style = {
@@ -42,12 +32,29 @@ const style = {
 const pos = {lat: 40.590624,lng: -73.892191}
 
 class MapContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      lan: 0,
+      lng: 0
+    }
+  }
+
+componentWillReceiveProps(nextProps){
+  console.log("props", nextProps.coords); 
+  this.setState({lan: nextProps.coords.lat, lng: nextProps.coords.lng})
+  //array[0] = this.createMarker(nextProps.lat.lat, nextProps.lat.lon);
+  //console.log(array[0]);
+}
+// createMarker(lat, lon){
+//   return { lat: lat, lng: lon }
+// }
 
 render() {
 	return (
 	<div className="map">
 		<HeaderNoBtn header="Map"/>
-		<MyMapComponent hello="lol" />
+		<MyMapComponent lan={this.state.lan} lng={this.state.lng}/>
 	</div>
 	);
 	}

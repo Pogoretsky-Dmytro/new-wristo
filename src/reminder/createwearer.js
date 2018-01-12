@@ -134,7 +134,7 @@ class Createwearer extends React.Component{
 			if(this.state.event == "" && date.getDate() >= this.props.weekarray[0].day && date.getDate() <= this.props.weekarray[6].day
 				&& date.getMonth() >= this.props.weekarray[0].month && date.getMonth() <= this.props.weekarray[6].month){
 				return item;	
-			} else if(this.state.event == item.title && date.getDate() >= this.props.weekarray[0].day && date.getDate() <= this.props.weekarray[6].day
+			} else if(this.state.event == item.title.toLowerCase() && date.getDate() >= this.props.weekarray[0].day && date.getDate() <= this.props.weekarray[6].day
 				&& date.getMonth() >= this.props.weekarray[0].month && date.getMonth() <= this.props.weekarray[6].month){
 				return item;	
 			}

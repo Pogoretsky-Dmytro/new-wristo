@@ -47,6 +47,8 @@ class Reminder extends React.Component {
 	this.createreminder = this.createreminder.bind(this);
 	this.redirectToLogin = this.redirectToLogin.bind(this);
   	this.ch = this.ch.bind(this);
+  	this.hideDropdown = this.hideDropdown.bind(this);
+  	this.hideDropdownRem = this.hideDropdownRem.bind(this);
 }
 
 componentWillMount(){
@@ -72,6 +74,7 @@ addGroup(item){
 		</div>
 }
 switchwearer(item){
+	this.hideDropdown();
 	this.state.wearershow = item.id;
 	this.state.wearername = item.full_name;
 	item.image ? this.state.wearerimg = item.image.url: this.state.wearerimg = defaultavatar;
@@ -165,7 +168,7 @@ findreminder(){
 	this.setState({filteredreminders: rem});
 }
 createreminder(item){
-	return <li key={item.id} onClick={() => this.ch(item)}>{item.title}</li>
+	return <li key={item.id} onClick={() => {this.ch(item), this.hideDropdownRem()}}>{item.title}</li>
 }
 ch(e){
 	this.setState({eventfilter: e.title, rerender: true});
@@ -195,17 +198,30 @@ clearsame(){
 	}
 	return filter;
 }
-
+hideDropdown(e){
+	if(this.refs.listwearers.style.display == "block" || this.refs.listwearers.style.display == undefined){
+		this.refs.listwearers.style.display = "none";
+	} else {
+		this.refs.listwearers.style.display = "block";
+	}
+}
+hideDropdownRem(e){
+	if(this.refs.reminderlist.style.display == "block" || this.refs.reminderlist.style.display == undefined){
+		this.refs.reminderlist.style.display = "none";
+	} else {
+		this.refs.reminderlist.style.display = "block";
+	}
+}
 render(){
 	let listOfGroups = this.state.groups.map(this.addGroup.bind(this))
 	let listWearers, createreminders = [];
   	if(this.state.wearers)listWearers = this.state.wearers.map((item) => {
-  		return <li onClick={(e) => this.switchwearer(item, e)} key={item.id}>{item.full_name}</li>
+  		return <li onClick={(e) => {this.switchwearer(item, e)}} key={item.id}>{item.full_name}</li>
   	});
   	let clearsamereminders = this.clearsame();
 	if(this.state.filteredreminders){
 		createreminders = clearsamereminders.map(this.createreminder);
-		createreminders.unshift(<li key={999} onClick={() => this.ch({title: ""})}>All Reminders</li>)
+		createreminders.unshift(<li key={999} onClick={() => {this.ch({title: ""}), this.hideDropdownRem()}}>All Reminders</li>)
 	}
 	return( 
 		<div>{
@@ -224,24 +240,18 @@ render(){
 						<p>Back to All Wearers</p>
 					</div>
 				</div>
-
-				<div className="wearericon" style={{display: "flex"}}>
-					<img src={this.state.wearerimg} style={{display: this.state.wearername !== "All wearers" ? "flex" : "none"}}/>
-					<p>{this.state.wearername}</p>
-				</div>
-
 				<div>
 					<div className="user-image"><img src={userImage}/></div>
 					<div className="combobox">
-						<button className="dropbtn">{this.state.cmbbox}</button>
-						<ul className="dropdown-content">
-						<li key="" onClick={(e) => this.switchwearer({full_name: "All wearers", id: 0}, e)} >
+						<input className="dropbtn" value={this.state.cmbbox} onClick={this.hideDropdown}/>
+						<ul className="dropdown-content" ref="listwearers">
+						<li key="" onClick={() => {this.switchwearer({full_name: "All wearers", id: 0})}}>
 						All users</li>{listWearers}</ul>
 					</div>
 					<div className="search">
 					<form onSubmit={() => this.ch({title: this.refs.reminder.value})} onChange={this.findreminder.bind(this)}>
-						  <input placeholder="Search" className="input" ref="reminder" value={this.state.eventfilter}/>
-						  <ul className="reminderslist">
+						  <input placeholder="Search" className="input" ref="reminder" onClick={this.hideDropdownRem} value={this.state.eventfilter}/>
+						  <ul className="reminderslist" ref="reminderlist">
 						  {createreminders}
 						  </ul>
 					</form>
@@ -261,3 +271,7 @@ render(){
 }
 }
 export default Reminder;
+
+/*<div className="wearericon">
+						<img src={this.state.wearerimg} style={{display: this.state.wearername !== "All wearers" ? "block" : "none"}}/>
+					</div>*/

@@ -19,6 +19,9 @@ import List from '../contacts/List';
 import Header from "../../settings/wearer-settings/header/header";
 import WearersLoading from '../../settings/wearer-settings/wearers-configuration-page/wearer-loading.js';
 
+export let latArray = [{ lat: 0, lng: 0 }]
+
+
 class MasterPage extends React.Component{
 	constructor(props){
 		super(props);
@@ -41,6 +44,9 @@ class MasterPage extends React.Component{
       		accesstoken: null,
       		uid: null,
 			client: null,
+			amountof: 0,
+			alarm: false,
+			lastalarm: {lat: 0, lon: 0}
 		};
 		this.onchangestate = this.onchangestate.bind(this);
 		this.deleteListItem = this.deleteListItem.bind(this);
@@ -51,6 +57,8 @@ class MasterPage extends React.Component{
 		this.listClick = this.listClick.bind(this);
 		this.redirectToLogin = this.redirectToLogin.bind(this);
 		this.getAlert = this.getAlert.bind(this);
+		this.setAlarm = this.setAlarm.bind(this);
+		this.setNormAlarm = this.setNormAlarm.bind(this);
 	}
 
 componentWillUnmount(){
@@ -68,19 +76,32 @@ componentWillMount() {
 		} 
 };
 
+setAlarm(lat, lon){
+	//console.log("S O S", lat + " " + lon)
+	latArray[0] = {lat: lat, lon: lon};
+	this.setState({alarm: true, lastalarm: {lat: lat, lng: lon}})
+}
+setNormAlarm(){
+	this.setState({alarm: false});
+}
  getAlert(){
-	// axios({
-	// 	method: 'post',
-	// 	url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/alerts',	
-	// 	headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
- 	// 	'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
-	//  responseType: 'json'		
-	// }).then(
-	// 	response => {
-	// 		console.log(response)},
-	// 	error => { 
-	// 		console.log(error)}
-	// )
+	axios({
+		method: 'get',
+		url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/alerts',	
+		headers: {'X-Requested-With': 'XMLHttpRequest', 'accept': 'application/json', 'content-type': 'application/json', 
+ 		'uid': sessionStorage.getItem("uid"), 'client': sessionStorage.getItem("client"), 'access-token': sessionStorage.getItem("accesstoken")},
+	 responseType: 'json'		
+	}).then(
+		response => {
+			if(this.state.amountof !== response.data.length){
+				this.setAlarm(response.data[response.data.length-1].latitude, response.data[response.data.length-1].longitude)
+				this.setState({amountof: response.data.length})
+			}
+		},
+		error => { 
+			console.log(error)
+		}
+	)
  }
 
 componentDidMount(){
@@ -242,7 +263,7 @@ render(){
 			<div className="contacts-body">
 				<div className="left-bar">
 					<AddGroup show={this.state.isModal} active={this.state.group} groups={this.state.groups} onGroupClick={this.onGroupClick} onListClick={this.listClick}/>
-					<MapContainer />
+					<MapContainer onGet={this.setNormAlarm} coords={this.state.lastalarm} />
 				</div>
 				<div className="right-bar">
 					<Contacts id={this.state.group} reloadwearers={this.getWearers} group={this.state.groupname} usersdata={this.state.wearers} carers={this.state.carers} onchangestate={this.onchangestate} deleteconfirm={this.state.confirm}/>

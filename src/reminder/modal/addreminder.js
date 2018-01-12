@@ -97,7 +97,7 @@ export default class AddReminder extends React.Component {
   }
   handleClick(e){
     if(e.target.className == "backdrop") {
-      this.props.onClose(false, true, true)
+      this.props.onClose(false, false, true)
     }
   }
   render() {
