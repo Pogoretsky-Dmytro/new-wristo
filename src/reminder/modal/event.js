@@ -29,10 +29,10 @@ export default class Event extends React.Component{
 		: icon = "http://www.iconsplace.com/icons/preview/blue/pill-256.png";
 		this.props.cros == "y" ? this.state.icon = crY : this.state.icon = crB;
 		return (
-			<div className="dayevents" style={{backgroundColor: this.props.color}}>
+			<div className="dayevents" style={{backgroundColor: this.props.color}} onMouseOver={() => this.refs.crosimg.style.display = "block"} onMouseOut={() => this.refs.crosimg.style.display = "none"}>
 				<img src={icon} alt="" />
 				<p>{this.props.title}<br/>{this.props.time}</p>	
-				<img onClick={this.tooglemodal} className="delete-event" src={this.state.icon}/>
+				<img style={{display: "none"}} ref="crosimg" onClick={this.tooglemodal} className="delete-event" src={this.state.icon}/>
 				{this.state.isModal && ReactDOM.createPortal(<Delete wid={this.props.item.wearer_id} 
           gid={this.props.gid} item={this.props.item} name={this.props.firstname} onClose={this.tooglemodal}/>, document.getElementById("portal"))}
 			</div>
