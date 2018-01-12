@@ -93,6 +93,9 @@ setNormAlarm(){
 	 responseType: 'json'		
 	}).then(
 		response => {
+			response.data.sort((a,b) => {
+				return a.id - b.id;
+			})
 			if(this.state.amountof !== response.data.length){
 				this.setAlarm(response.data[response.data.length-1].latitude, response.data[response.data.length-1].longitude)
 				this.setState({amountof: response.data.length})
