@@ -13,7 +13,8 @@ export default class AddReminder extends React.Component {
     	reminder: "",
     	openstart: "calendarnone",
     	openend: "calendarnone",
-    	alerts: []
+    	alerts: [],
+      dropdown: false
     }
     this.onchangeday = this.onchangeday.bind(this);
     this.changeclassstart = this.changeclassstart.bind(this);
@@ -56,6 +57,9 @@ export default class AddReminder extends React.Component {
   }
   changetype(type){
   	this.setState({type: type});
+  }
+  hidereopdown(){
+    this.setState({dropdown: !this.state.dropdown})
   }
   addreminder(){
     console.log("sent request")
@@ -133,9 +137,9 @@ export default class AddReminder extends React.Component {
         </div>
         <div className="reminder-type">
         	<p>Type of reminder</p>
-        	<div className="combobox">
+        	<div className="combobox" onClick={this.hidereopdown.bind(this)}>
 				<button className="dropbtn">{this.state.type}</button>
-				<ul className="dropdown-content">
+				<ul className="dropdown-content" style={{display: this.state.dropdown ? "block" : "none"}}>
 					<li key="1" onClick={() => this.changetype("medical")}>Medical</li>
 					<li key="2" onClick={() => this.changetype("social")}>Social</li>
 				</ul>
