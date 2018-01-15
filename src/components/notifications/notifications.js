@@ -52,7 +52,10 @@ setviewed(id){
 		}	
 	}).then(
 		response => {
-			console.log(response.data);
+			for(let i = 0; i < this.state.alerts.length; i++){
+				if(this.state.alerts[i].id == id)
+					this.state.alerts[i].viewed = true;
+			}
 		},
 		error => { 
 			console.log(error)
@@ -60,7 +63,6 @@ setviewed(id){
 	)
 }
 createNotification(item, index){
-	console.log(item)
 	let active = false;
 	if(index == 0) active = true;
 	let date = new Date(item.created_at);

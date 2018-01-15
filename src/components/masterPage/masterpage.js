@@ -46,7 +46,7 @@ class MasterPage extends React.Component{
 			client: null,
 			amountof: 0,
 			alarm: false,
-			lastalarm: {lat: 0, lon: 0},
+			lastalarm: {lat: 0, lng: 0},
 			alert: {}
 		};
 		this.onchangestate = this.onchangestate.bind(this);

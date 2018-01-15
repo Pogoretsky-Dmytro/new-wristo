@@ -18,7 +18,7 @@ const MyMapComponent = compose(
   withScriptjs,
   withGoogleMap
 )((props) =>
-  <GoogleMap defaultZoom={11} defaultCenter={{ lat: 49.8357, lng: 24.059 }}>
+  <GoogleMap defaultZoom={8} defaultCenter={{ lat: 49.83, lng: 24.05 }}>
     <Marker position={{ lat: props.lan, lng: props.lng }}/>
   </GoogleMap>
 )
@@ -29,7 +29,7 @@ const key = "AIzaSyBla7cldJeOqMXD4xPNcARqmGRPB-YQOZs"
 const style = {
 	backgroundColor: "red"
 }
-const pos = {lat: 40.590624,lng: -73.892191}
+let pos = {lat: 40.590624, lng: -73.892191}
 
 class MapContainer extends React.Component {
   constructor(props) {
@@ -41,14 +41,10 @@ class MapContainer extends React.Component {
   }
 
 componentWillReceiveProps(nextProps){
-  //console.log("props", nextProps.coords); 
+  pos = {lat: nextProps.coords.lat, lng: nextProps.coords.lng};
+  console.log(pos);
   this.setState({lan: nextProps.coords.lat, lng: nextProps.coords.lng})
-  //array[0] = this.createMarker(nextProps.lat.lat, nextProps.lat.lon);
-  //console.log(array[0]);
 }
-// createMarker(lat, lon){
-//   return { lat: lat, lng: lon }
-// }
 
 render() {
 	return (
