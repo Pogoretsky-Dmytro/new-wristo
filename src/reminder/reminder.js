@@ -74,7 +74,6 @@ addGroup(item){
 		</div>
 }
 switchwearer(item){
-	this.hideDropdown();
 	this.state.wearershow = item.id;
 	this.state.wearername = item.full_name;
 	item.image ? this.state.wearerimg = item.image.url: this.state.wearerimg = defaultavatar;
@@ -216,7 +215,7 @@ render(){
 	let listOfGroups = this.state.groups.map(this.addGroup.bind(this))
 	let listWearers, createreminders = [];
   	if(this.state.wearers)listWearers = this.state.wearers.map((item) => {
-  		return <li onClick={(e) => {this.switchwearer(item, e)}} key={item.id}>{item.full_name}</li>
+  		return <li onClick={(e) => {this.switchwearer(item, e), this.hideDropdown()}} key={item.id}>{item.full_name}</li>
   	});
   	let clearsamereminders = this.clearsame();
 	if(this.state.filteredreminders){
@@ -243,13 +242,13 @@ render(){
 				<div>
 					<div className="user-image"><img src={userImage}/></div>
 					<div className="combobox">
-						<input className="dropbtn" value={this.state.cmbbox} onClick={this.hideDropdown}/>
+						<button className="dropbtn" onClick={this.hideDropdown}>{this.state.cmbbox}</button>
 						<ul className="dropdown-content" ref="listwearers">
-						<li key="" onClick={() => {this.switchwearer({full_name: "All wearers", id: 0})}}>
+						<li key="" onClick={() => {this.switchwearer({full_name: "All wearers", id: 0}), this.hideDropdown()}}>
 						All users</li>{listWearers}</ul>
 					</div>
 					<div className="search">
-					<form onSubmit={() => this.ch({title: this.refs.reminder.value})} onChange={this.findreminder.bind(this)}>
+					<form onSubmit={() => {this.ch({title: this.refs.reminder.value}), this.hideDropdownRem()}} onChange={this.findreminder.bind(this)}>
 						  <input placeholder="Search" className="input" ref="reminder" onClick={this.hideDropdownRem} value={this.state.eventfilter}/>
 						  <ul className="reminderslist" ref="reminderlist">
 						  {createreminders}
