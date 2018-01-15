@@ -8,10 +8,10 @@ import Delete from './modals/delete';
 import Duplicate from './modals/duplicate';
 import NewGroup from './modals/newgroup';
 import Modal from './modals/deletewearer';
-
 import Contacts from '../contacts/contacts';
 import MapContainer from '../maps/google-map';
 import AddGroup from '../groups/addGroup';
+
 import '../maps/maps.scss';
 import './masterpage.scss';
 import Notifications from '../notifications/notifications'
@@ -46,7 +46,8 @@ class MasterPage extends React.Component{
 			client: null,
 			amountof: 0,
 			alarm: false,
-			lastalarm: {lat: 0, lon: 0}
+			lastalarm: {lat: 0, lon: 0},
+			alert: {}
 		};
 		this.onchangestate = this.onchangestate.bind(this);
 		this.deleteListItem = this.deleteListItem.bind(this);
@@ -76,15 +77,14 @@ componentWillMount() {
 		} 
 };
 
-setAlarm(lat, lon){
-	//console.log("S O S", lat + " " + lon)
-	latArray[0] = {lat: lat, lon: lon};
-	this.setState({alarm: true, lastalarm: {lat: lat, lng: lon}})
+setAlarm(item){
+	latArray[0] = {lat: item.latitude, lon: item.longitude};
+	this.setState({alarm: true, lastalarm: {lat: item.latitude, lng: item.longitude}, alert: item})
 }
 setNormAlarm(){
 	this.setState({alarm: false});
 }
- getAlert(){
+getAlert(){
 	axios({
 		method: 'get',
 		url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/alerts',	
@@ -97,8 +97,8 @@ setNormAlarm(){
 				return a.id - b.id;
 			})
 			if(this.state.amountof !== response.data.length){
-				this.setAlarm(response.data[response.data.length-1].latitude, response.data[response.data.length-1].longitude)
-				this.setState({amountof: response.data.length})
+				this.state.amountof = response.data.length;
+				this.setAlarm(response.data[response.data.length-1])
 			}
 		},
 		error => { 
@@ -270,7 +270,7 @@ render(){
 				</div>
 				<div className="right-bar">
 					<Contacts id={this.state.group} reloadwearers={this.getWearers} group={this.state.groupname} usersdata={this.state.wearers} carers={this.state.carers} onchangestate={this.onchangestate} deleteconfirm={this.state.confirm}/>
-					<Notifications />
+					<Notifications alert={this.state.alert} />
 				</div>
 			</div>
 			{duplicateGroup}

@@ -41,7 +41,7 @@ class MapContainer extends React.Component {
   }
 
 componentWillReceiveProps(nextProps){
-  console.log("props", nextProps.coords); 
+  //console.log("props", nextProps.coords); 
   this.setState({lan: nextProps.coords.lat, lng: nextProps.coords.lng})
   //array[0] = this.createMarker(nextProps.lat.lat, nextProps.lat.lon);
   //console.log(array[0]);

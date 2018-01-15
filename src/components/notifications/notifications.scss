@@ -69,3 +69,13 @@
 	cursor: pointer;
 }
 .showAll p{margin-left: 10px;}
+.sos{
+	background-color: red;
+	animation: colorchange 2s infinite;
+}
+ @keyframes colorchange
+    {
+      0%   {background: red;}
+      50%  {background: white;}
+      100% {background: red;}
+    }
