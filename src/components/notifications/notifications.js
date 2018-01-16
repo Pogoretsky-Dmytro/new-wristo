@@ -83,7 +83,6 @@ createNotification(item, index){
 	return <AddEvent event={item.message} time={time} id={item.id} onChange={this.setviewed.bind(this)} active={item.viewed} name="Bohdan" link="https://wristoapp.s3.amazonaws.com/staging/uploads/wearer/image/15/image.jpeg"/>
 }
 componentWillReceiveProps(nextProps){
-	console.log("props", nextProps.alert);
 	if(Object.keys(nextProps.alert).length !== 0){
 		if(nextProps.alert.id !== this.state.alerts[0].id){
 			let arr = this.state.alerts;

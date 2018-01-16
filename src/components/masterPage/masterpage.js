@@ -99,6 +99,7 @@ getAlert(){
 				return a.id - b.id;
 			})
 			if(this.state.amountof !== response.data.length){
+				this.setState({zoom: 8})
 				this.state.amountof = response.data.length;
 				this.setAlarm(response.data[response.data.length-1])
 			}
