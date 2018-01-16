@@ -18,7 +18,7 @@ const MyMapComponent = compose(
   withScriptjs,
   withGoogleMap
 )((props) =>
-  <GoogleMap defaultZoom={8} defaultCenter={{ lat: 49.83, lng: 24.05 }}>
+  <GoogleMap defaultZoom={props.zoom} zoom={props.zoom} center={{lat: props.lan, lng: props.lng}}>
     <Marker position={{ lat: props.lan, lng: props.lng }}/>
   </GoogleMap>
 )
@@ -31,26 +31,29 @@ const style = {
 }
 let pos = {lat: 40.590624, lng: -73.892191}
 
+var c = 0;
+
 class MapContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       lan: 0,
-      lng: 0
+      lng: 0,
+      center: {lan: 40, lng: 40},
+      zoom: 0
     }
   }
 
 componentWillReceiveProps(nextProps){
-  pos = {lat: nextProps.coords.lat, lng: nextProps.coords.lng};
-  console.log(pos);
-  this.setState({lan: nextProps.coords.lat, lng: nextProps.coords.lng})
+  this.setState({zoom: nextProps.zoom == undefined ? 8 : nextProps.zoom, lan: nextProps.coords.lat, lng: nextProps.coords.lng, center: {lan: nextProps.coords.lat, lng: nextProps.coords.lng}})
+  console.log(this.state.zoom)
 }
 
 render() {
 	return (
 	<div className="map">
 		<HeaderNoBtn header="Map"/>
-		<MyMapComponent lan={this.state.lan} lng={this.state.lng}/>
+		<MyMapComponent zoom={this.state.zoom} lan={this.state.lan} lng={this.state.lng} center={this.props.center}/>
 	</div>
 	);
 	}

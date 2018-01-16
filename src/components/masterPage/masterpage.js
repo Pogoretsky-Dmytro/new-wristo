@@ -21,7 +21,7 @@ import WearersLoading from '../../settings/wearer-settings/wearers-configuration
 
 export let latArray = [{ lat: 0, lng: 0 }]
 
-
+var n = 0;
 class MasterPage extends React.Component{
 	constructor(props){
 		super(props);
@@ -46,8 +46,9 @@ class MasterPage extends React.Component{
 			client: null,
 			amountof: 0,
 			alarm: false,
-			lastalarm: {lat: 0, lng: 0},
-			alert: {}
+			lastalarm: {lat: 40, lng: 40},
+			alert: {},
+			center: { lat: 43.83, lng: 24.05 }
 		};
 		this.onchangestate = this.onchangestate.bind(this);
 		this.deleteListItem = this.deleteListItem.bind(this);
@@ -58,6 +59,7 @@ class MasterPage extends React.Component{
 		this.listClick = this.listClick.bind(this);
 		this.redirectToLogin = this.redirectToLogin.bind(this);
 		this.getAlert = this.getAlert.bind(this);
+		this.getCoords = this.getCoords.bind(this)
 		this.setAlarm = this.setAlarm.bind(this);
 		this.setNormAlarm = this.setNormAlarm.bind(this);
 	}
@@ -217,8 +219,6 @@ deleteListItem(){
         .catch(function (error) {
             console.log(error);
         })
-	// const filteredUsers = this.state.axiosData.filter(user => user.id != this.state.todelete);
-	// this.setState({ confirm: true, axiosData: filteredUsers });
 }
 
 redirectToLogin() {          
@@ -228,6 +228,11 @@ redirectToLogin() {
 		})
 	}
 	};
+
+getCoords(item){
+	this.setState({zoom: 16})
+}
+
 
 render(){
 	let modal = null, renamemodal = null, deleteGroup = null, duplicateGroup = null, newGroup = null;
@@ -266,11 +271,11 @@ render(){
 			<div className="contacts-body">
 				<div className="left-bar">
 					<AddGroup show={this.state.isModal} active={this.state.group} groups={this.state.groups} onGroupClick={this.onGroupClick} onListClick={this.listClick}/>
-					<MapContainer onGet={this.setNormAlarm} coords={this.state.lastalarm} />
+					<MapContainer zoom={this.state.zoom} onGet={this.setNormAlarm} coords={this.state.lastalarm} center={this.state.center}/>
 				</div>
 				<div className="right-bar">
 					<Contacts id={this.state.group} reloadwearers={this.getWearers} group={this.state.groupname} usersdata={this.state.wearers} carers={this.state.carers} onchangestate={this.onchangestate} deleteconfirm={this.state.confirm}/>
-					<Notifications alert={this.state.alert} />
+					<Notifications alert={this.state.alert} onChange={this.getCoords}/>
 				</div>
 			</div>
 			{duplicateGroup}
@@ -279,7 +284,7 @@ render(){
 			{newGroup}
 			{deleteGroup}
 	</div>
-    : <WearersLoading/> 	}
+    : <WearersLoading/>}
 	
 	</div>)
 }

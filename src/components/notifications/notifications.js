@@ -11,6 +11,7 @@ class AddEvent extends React.Component{
 	this.state = {
 		alertclass: "sos"
 	}
+	this.removeAlarm = this.removeAlarm.bind(this);
 }
 removeAlarm(){
 	this.props.onChange(this.props.id);
@@ -35,7 +36,17 @@ class Notifications extends React.Component{
 constructor(props){
 	super(props);
 	this.state = {
-		alerts: []
+		alerts: [{
+			address: "Miskevycha Square, 9, L'viv, Lviv Oblast, Ukraine, 79000",
+			created_at:"2018-01-15T15:17:35.938Z",
+			id:0,
+			latitude:49.839683,
+			longitude:24.029717,
+			message:"SOS",
+			unique_wristo_id:"69M2VL",
+			updated_at:"2018-01-15T15:17:59.787Z",
+			viewed:true
+		}]
 	}
 }
 setviewed(id){
@@ -53,8 +64,10 @@ setviewed(id){
 	}).then(
 		response => {
 			for(let i = 0; i < this.state.alerts.length; i++){
-				if(this.state.alerts[i].id == id)
+				if(this.state.alerts[i].id == id){
+					this.props.onChange(this.state.alerts[i]);
 					this.state.alerts[i].viewed = true;
+				}
 			}
 		},
 		error => { 
@@ -70,15 +83,16 @@ createNotification(item, index){
 	return <AddEvent event={item.message} time={time} id={item.id} onChange={this.setviewed.bind(this)} active={item.viewed} name="Bohdan" link="https://wristoapp.s3.amazonaws.com/staging/uploads/wearer/image/15/image.jpeg"/>
 }
 componentWillReceiveProps(nextProps){
+	console.log("props", nextProps.alert);
 	if(Object.keys(nextProps.alert).length !== 0){
-		let arr = this.state.alerts;
-		arr.unshift(nextProps.alert);
-		this.state.notifications = arr.map(this.createNotification.bind(this))
-		this.setState({alerts: arr});
+		if(nextProps.alert.id !== this.state.alerts[0].id){
+			let arr = this.state.alerts;
+			arr.unshift(nextProps.alert);
+			this.state.notifications = arr.map(this.createNotification.bind(this))
+			this.setState({alerts: arr});
+		}
 	}
 }
-
-
 render(){
 	return (
 		<div className="notifications">
@@ -87,7 +101,7 @@ render(){
 				{this.state.notifications}	
 			</div>
 			<div className="showAll">
-					<p>see all</p>
+				<p>see all</p>
 			</div>
 		</div>
 	)
