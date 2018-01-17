@@ -6,28 +6,53 @@ const imgStyle = {
 	cursor: "pointer"
 }
 
-export const HeaderTwoBtn = (props) =>{
+export class HeaderTwoBtn extends React.Component {
+ constructor(props) {
+    super(props);
+    this.state = {
+    	imgstyle: {cursor: "pointer"}
+    }
+    this.setstyle = this.setstyle.bind(this);
+} 
+setstyle(){
+	if(this.state.imgstyle.transform == undefined){
+		this.setState({imgstyle: {cursor: "pointer", transform: "rotate(180deg)"}})
+	} else {
+		this.setState({imgstyle: {cursor: "pointer"}});
+	}
+}
+render(){
 	return <div className="header">
-		<p>{props.header}</p>
+		<p>{this.props.header}</p>
 		<div className="btn">
-		<img style={imgStyle} src={expless} alt="" onClick={() => props.onChange()}/>
+		<img style={this.state.imgstyle} src={expless} alt="" onClick={() => {this.props.onChange(); this.setstyle()}}/>
 		<img style={imgStyle} src={close} alt="" />
 	</div></div>
 }
-export const HeaderThreeBtn = (props) =>{
-	return <div className="header">
-		<p>{props.header}</p>
-		<div className="btn">
-		<img style={imgStyle} src={loop} alt="" />
-		<img style={imgStyle} src={expless} alt="" />
-		<img style={imgStyle} src={close} alt="" />
-	</div></div>
 }
-export const HeaderNoBtn = (props) =>{
+export class HeaderThreeBtn extends React.Component {
+ constructor(props) {
+    super(props);
+    this.state = {
+    	imgstyle: {cursor: "pointer"}
+    }
+    this.setstyle = this.setstyle.bind(this);
+} 
+setstyle(){
+	if(this.state.imgstyle.transform == undefined){
+		this.setState({imgstyle: {cursor: "pointer", transform: "rotate(180deg)"}})
+	} else {
+		this.setState({imgstyle: {cursor: "pointer"}});
+	}
+}
+render(){
 	return <div className="header">
-			<p>{props.header}</p>
-		<div className="btn">
-			<img alt="" />
+			<p>{this.props.header}</p>
+			<div className="btn">
+			<img style={imgStyle} src={loop} alt="" />
+			<img style={this.state.imgstyle} src={expless} alt="" onClick={() => {this.props.onChange(); this.setstyle()}}/>
+			<img style={imgStyle} src={close} alt="" />
 		</div>
 	</div>
+}
 }

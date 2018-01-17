@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import './notifications.scss'
-import {HeaderNoBtn} from '../otherComponents/header';
+import {HeaderTwoBtn} from '../otherComponents/header';
 
 
 
@@ -36,6 +36,7 @@ class Notifications extends React.Component{
 constructor(props){
 	super(props);
 	this.state = {
+		hide: false,
 		alerts: [{
 			address: "Miskevycha Square, 9, L'viv, Lviv Oblast, Ukraine, 79000",
 			created_at:"2018-01-15T15:17:35.938Z",
@@ -48,6 +49,7 @@ constructor(props){
 			viewed:true
 		}]
 	}
+	this.reduceheight = this.reduceheight.bind(this);
 }
 setviewed(id){
 	axios({
@@ -91,12 +93,23 @@ componentWillReceiveProps(nextProps){
 			this.setState({alerts: arr});
 		}
 	}
+	if(this.state.hide !== nextProps.hide){
+      this.reduceheight(this.divElement, nextProps.hide);
+    }
+}
+hidelist(){
+	this.state.hide = !this.state.hide;
+	this.reduceheight(this.divElement, this.state.hide);
+}
+reduceheight(elem, hide){
+   this.divElement.style.maxHeight = !hide ? "195px" : "0px"
+   this.divElement.style.transitionDuration = "3s";
 }
 render(){
 	return (
 		<div className="notifications">
-			<HeaderNoBtn header="Notifications"/>
-			<div className="events">
+			<HeaderTwoBtn onChange={this.hidelist.bind(this)} header="Notifications"/>
+			<div className="events" ref={ (divElement) => this.divElement = divElement}>
 				{this.state.notifications}	
 			</div>
 			<div className="showAll">

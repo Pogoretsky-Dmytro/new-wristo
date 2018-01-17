@@ -13,7 +13,7 @@
 	}
 }
 .map > :last-child{
-	height: 600px;
+	overflow: hidden;
 }
 [title^="Click"] {
 	display:none;	

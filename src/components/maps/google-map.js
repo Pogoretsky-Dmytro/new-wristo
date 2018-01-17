@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 //import './maps.css'
 import image from '../../assets/icons/delete.svg'
-import {HeaderTwoBtnm, HeaderThreeBtn, HeaderNoBtn} from '../otherComponents/header';
+import {HeaderTwoBtn, HeaderThreeBtn, HeaderNoBtn} from '../otherComponents/header';
 import { compose, withProps, withHandlers, withState } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, OverlayView} from "react-google-maps"
-
-import {latArray} from '../masterPage/masterpage';
-
+var mapheight = "400px";
 
 const MyMapComponent = compose(
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBla7cldJeOqMXD4xPNcARqmGRPB-YQOZs&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div />,
-    mapElement: <div style={{ height: `100%` }} />,
+    mapElement: <div style={{height: `600px`}} />,
   }),
   withState('zoom', 'onZoomChange', 8),
    withHandlers(() => {
@@ -47,24 +45,59 @@ class MapContainer extends React.Component {
       lan: 0,
       lng: 0,
       center: {lan: 40, lng: 40},
-      zoom: 0
+      zoom: 0,
+      hide: false,
+      width: 0,
+      height: 0
     }
     this.getzoom = this.getzoom.bind(this);
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this.reduceheight = this.reduceheight.bind(this)
   }
 
 componentWillReceiveProps(nextProps){
   this.setState({zoom: nextProps.zoom == undefined ? 8 : nextProps.zoom, lan: nextProps.coords.lat,
    lng: nextProps.coords.lng, center: {lan: nextProps.coords.lat, lng: nextProps.coords.lng}})
 }
+componentDidMount() {
+  this.updateWindowDimensions();
+  window.addEventListener('resize', this.updateWindowDimensions);
+}
+
+componentWillUnmount() {
+  window.removeEventListener('resize', this.updateWindowDimensions);
+}
+
+updateWindowDimensions() {
+  this.setState({ width: window.innerWidth, height: window.innerHeight });
+}
+
 getzoom(zoom){
   this.setState({zoom: zoom})
+}
+hidelist(){
+  this.setState({hide: !this.state.hide})
+  console.log("here", this.state.width)
+  this.reduceheight(this.state.hide);
+}
+reduceheight(hide){
+  var mapheight;
+  if(this.state.width < 825) {
+    mapheight = "200px"
+  } else {
+    mapheight = "600px"
+  }
+  this.divElement.style.height = hide ? mapheight : "0px"
+  this.divElement.style.transitionDuration = "2s";
 }
 render() {
 	return (
 	<div className="map">
-		<HeaderNoBtn header="Map"/>
-		<MyMapComponent onChange={this.getzoom} zoomprops={this.state.zoom} lan={this.state.lan} lng={this.state.lng} center={this.props.center}/>
-	</div>
+		<HeaderThreeBtn onChange={this.hidelist.bind(this)} header="Map"/>
+    <div style={{height: "600px"}} ref={ (divElement) => this.divElement = divElement} >
+		<MyMapComponent hide={this.state.hide} onChange={this.getzoom} zoomprops={this.state.zoom} lan={this.state.lan} lng={this.state.lng} center={this.props.center}/>
+	  </div>
+  </div>
 	);
 	}
 }

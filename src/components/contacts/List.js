@@ -49,30 +49,14 @@ class List extends React.Component {
 
   componentWillReceiveProps(nextProps){
     if(this.state.hide !== nextProps.hide){
-      this.reduceheight(this.divElement, nextProps.hide);
-    }
-    if(this.divElement.clientHeight !== 0) {
-      this.divElement.style.height = "auto";
-      this.setState({height: this.divElement.clientHeight});
+      this.reduceheight(nextProps.hide);
     }
     this.setState({hide: nextProps.hide});
   }
 
-  reduceheight(elem, hide){
-    console.log(hide)
-    var height = hide ? elem.clientHeight : 0;
-    var speed = height/50;
-    console.log(Math.ceil(speed))
-    var check = hide ? 0 : this.state.height;
-    var id = setInterval(frame, speed);
-    function frame() {
-        if (height == check) {
-            clearInterval(id);
-        } else {
-            hide ? height-- : height++; 
-            elem.style.height = height + 'px'; 
-        }
-    }
+  reduceheight(hide){
+    this.divElement.style.maxHeight = !hide ? "195px" : "0px"
+    this.divElement.style.transitionDuration = "3s";
   }
 
   render() {
