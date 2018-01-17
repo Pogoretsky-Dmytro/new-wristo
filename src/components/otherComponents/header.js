@@ -26,7 +26,6 @@ render(){
 		<p>{this.props.header}</p>
 		<div className="btn">
 		<img style={this.state.imgstyle} src={expless} alt="" onClick={() => {this.props.onChange(); this.setstyle()}}/>
-		<img style={imgStyle} src={close} alt="" />
 	</div></div>
 }
 }
@@ -49,10 +48,11 @@ render(){
 	return <div className="header">
 			<p>{this.props.header}</p>
 			<div className="btn">
-			<img style={imgStyle} src={loop} alt="" />
 			<img style={this.state.imgstyle} src={expless} alt="" onClick={() => {this.props.onChange(); this.setstyle()}}/>
-			<img style={imgStyle} src={close} alt="" />
 		</div>
 	</div>
 }
 }
+
+//<img style={imgStyle} src={loop} alt="" onClick={() => this.props.onReload()}/>
+//<img style={imgStyle} src={close} alt="" />

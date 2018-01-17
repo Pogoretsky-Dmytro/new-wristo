@@ -62,6 +62,7 @@ componentWillReceiveProps(nextProps){
 componentDidMount() {
   this.updateWindowDimensions();
   window.addEventListener('resize', this.updateWindowDimensions);
+  this.setState({ width: window.innerWidth, height: window.innerHeight})
 }
 
 componentWillUnmount() {
@@ -77,7 +78,6 @@ getzoom(zoom){
 }
 hidelist(){
   this.setState({hide: !this.state.hide})
-  console.log("here", this.state.width)
   this.reduceheight(this.state.hide);
 }
 reduceheight(hide){
@@ -90,11 +90,14 @@ reduceheight(hide){
   this.divElement.style.height = hide ? mapheight : "0px"
   this.divElement.style.transitionDuration = "2s";
 }
+reloadComponents(){
+  this.forceUpdate();
+}
 render() {
 	return (
 	<div className="map">
-		<HeaderThreeBtn onChange={this.hidelist.bind(this)} header="Map"/>
-    <div style={{height: "600px"}} ref={ (divElement) => this.divElement = divElement} >
+		<HeaderThreeBtn onReload={this.reloadComponents.bind(this)} onChange={this.hidelist.bind(this)} header="Map"/>
+    <div style={{height: this.state.width < 825 ? "200px" : "600px"}} ref={ (divElement) => this.divElement = divElement} >
 		<MyMapComponent hide={this.state.hide} onChange={this.getzoom} zoomprops={this.state.zoom} lan={this.state.lan} lng={this.state.lng} center={this.props.center}/>
 	  </div>
   </div>
