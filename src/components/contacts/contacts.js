@@ -4,6 +4,7 @@ import List from './List';
 import {HeaderTwoBtn} from '../otherComponents/header';
 import axios from 'axios';
 import actions from './actionsContacts';
+import Draggable from 'react-draggable';
 
 function EbsentCarers(){
 	return <p className="absentcontacts">There is no wearers ...</p>
@@ -46,7 +47,7 @@ render(){
 	} else if(data == "none" || data == []){
 		button = <EbsentCarers />
 	}
-	return (
+	return ( 
 			<div className="contacts-container">
 	 			<HeaderTwoBtn header="Contacts" onChange={this.hidelist.bind(this)}/>
 	 			<div className="chooseUser">

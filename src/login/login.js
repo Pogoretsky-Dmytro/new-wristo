@@ -51,13 +51,26 @@ class Login extends React.Component{
     render(){
         return (
     <div className="sign_Page">
-    <header>
+        <LogInForm toogleEmailInp ={this.toogleEmailInp} toogleResendEmailInp={this.toogleResendEmailInp}/>
+   
+       
+</div>
+        );
+    }
+}
+
+export default Login;
+
+/* 
+<header>
         <div className="header__logo">
         <img src={logo} alt=""/>
         <span> wristo </span>
         </div>
     </header>
-    {this.state.forgetPasswordClicked || this.state.resendEmailClicked ? <div className="wrap">
+
+
+{this.state.forgetPasswordClicked || this.state.resendEmailClicked ? <div className="wrap">
         <Email toogleEmailInp ={this.toogleEmailInp} toogleResendEmailInp={this.toogleResendEmailInp} toogleBackToLogin={this.toogleBackToLogin} stateforgetPasswordClicked={this.state.forgetPasswordClicked} stateresendEmailClicked={this.state.resendEmailClicked} /></div> : <div className="wrap">
         <div>
         <p id="heading">Log in</p>
@@ -70,11 +83,4 @@ class Login extends React.Component{
                 <Link to='/signup'>Create account</Link>
             </p>
         </div>
-    </div> }
-       
-</div>
-        );
-    }
-}
-
-export default Login;
+    </div> }*/

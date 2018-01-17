@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import './notifications.scss'
 import {HeaderTwoBtn} from '../otherComponents/header';
+//import Draggable from 'react-draggable';
 
 
 
@@ -102,7 +103,7 @@ hidelist(){
 	this.reduceheight(this.divElement, this.state.hide);
 }
 reduceheight(elem, hide){
-   this.divElement.style.maxHeight = !hide ? "195px" : "0px"
+   this.divElement.style.maxHeight = !hide ? "204px" : "0px"
    this.divElement.style.transitionDuration = "3s";
 }
 render(){

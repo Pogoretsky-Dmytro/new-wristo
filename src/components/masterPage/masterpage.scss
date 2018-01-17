@@ -2,6 +2,8 @@
 
 .right-bar{
 	width: 30%;
+	display: flex;
+	flex-direction: column;
 	margin-top: 45px;
 	margin-right: 10px;
 }
@@ -200,6 +202,7 @@
      	display: none;
      }
      .right-bar {
+     	flex-direction: row;
      	margin-top: 0px;
      }
      .map > :last-child{

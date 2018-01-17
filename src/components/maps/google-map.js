@@ -31,7 +31,7 @@ const MyMapComponent = compose(
   withScriptjs,
   withGoogleMap
 )((props) =>
-  <GoogleMap ref={props.onMapMounted} onZoomChanged={props.onZoomChanged} onClick={() => props.onChange(props.zoom)} zoom={props.zoomprops} center={{lat: props.lan, lng: props.lng}}>
+  <GoogleMap ref={props.onMapMounted} onZoomChanged={props.onZoomChanged} onClick={() => props.onChange(8)} zoom={props.zoomprops} center={{lat: props.lan, lng: props.lng}}>
     <Marker position={{ lat: props.lan, lng: props.lng }}/>
   </GoogleMap>
 )

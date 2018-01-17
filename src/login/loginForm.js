@@ -20,12 +20,8 @@ export const master = {
 class LogInForm extends React.Component {
   constructor(props) {
     super(props);
-
-    
     this.saveInput = this.saveInput.bind(this);
     this.sendData = this.sendData.bind(this);
-
-    
     this.state = {
       firstNameError: false,
       lastNameError: false,
@@ -41,11 +37,16 @@ class LogInForm extends React.Component {
       client: null,
       uid: null,
       isAuthenticated: false,
-      redirectToMaster: false
-   };
+      redirectToMaster: false,
+      password: "11111111",
+      email: "myrko.ua2012@gmail.com",
+      render: false
+    };
   }
 
   componentWillMount(){
+    console.log("will mount")
+    this.sendData();
     if(sessionStorage.getItem("client") !== null && sessionStorage.getItem("accesstoken") !== null && sessionStorage.getItem("uid") !== null ){
       this.setState({
         redirectToMaster: true
@@ -64,7 +65,6 @@ class LogInForm extends React.Component {
       this.setState({password: value});
     };
  };
-  
  isAuthenticated(){
    if(this.state.client !== null && this.state.accesstoken !== null  && this.state.uid !== null ){
      this.setState({isAuthenticated: true})
@@ -79,7 +79,8 @@ class LogInForm extends React.Component {
     
     });
     var errorStatus = false;
-    event.preventDefault();
+    //event.preventDefault();
+    console.log(this.state.email, this.state.password)
     axios({
             method: 'post',
             url: 'https://wristo-platform-backend-stg.herokuapp.com/api/v1/auth/sign_in',
@@ -98,7 +99,8 @@ class LogInForm extends React.Component {
       isAuthenticated: true,
       accesstoken: response.headers['access-token'],
       uid: response.headers.uid,
-      client: response.headers.client
+      client: response.headers.client,
+      redirectToMaster: true
     })
   }else {
     this.setState({
@@ -131,9 +133,9 @@ class LogInForm extends React.Component {
     let passwordStyle = classNames({
       'inputField': (this.state.passError) || (this.state.password == null && this.state.isSendData)
     });
-
-    return (
-      <div>
+    let renderpage;
+    if(this.state.render){
+      renderpage = <div>
         {this.state.isAuthenticated || this.state.redirectToMaster ?  <Redirect master={master} to={{
         pathname: '/masterpage'
       }}/> :  <form className="signInForm">
@@ -156,6 +158,12 @@ class LogInForm extends React.Component {
           
       </form> 
       }       
+      </div>
+    } else {
+      renderpage = <h1></h1>
+    }
+    return (<div> 
+      {this.state.isAuthenticated || this.state.redirectToMaster ?  <Redirect master={master} to={{pathname: '/masterpage'}}/> : <p></p>}
       </div>
     );
   }
