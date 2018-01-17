@@ -16,11 +16,13 @@ class List extends React.Component {
     this.state = {
       items: this.props.toshow,
       deletedId: "",
-      isModalOpen: false
+      isModalOpen: false,
+      hide: false
     };
     this.addElement = this.addElement.bind(this);
     this.deleteUser = this.deleteUser.bind(this);
     this.createTasks = this.createTasks.bind(this);
+    this.reduceheight = this.reduceheight.bind(this);
   }
 
   addElement(e){
@@ -45,13 +47,41 @@ class List extends React.Component {
     this.setState(state => ({isModalOpen: !state.isModalOpen}))
   }
 
+  componentWillReceiveProps(nextProps){
+    if(this.state.hide !== nextProps.hide){
+      this.reduceheight(this.divElement, nextProps.hide);
+    }
+    if(this.divElement.clientHeight !== 0) {
+      this.divElement.style.height = "auto";
+      this.setState({height: this.divElement.clientHeight});
+    }
+    this.setState({hide: nextProps.hide});
+  }
+
+  reduceheight(elem, hide){
+    console.log(hide)
+    var height = hide ? elem.clientHeight : 0;
+    var speed = height/50;
+    console.log(Math.ceil(speed))
+    var check = hide ? 0 : this.state.height;
+    var id = setInterval(frame, speed);
+    function frame() {
+        if (height == check) {
+            clearInterval(id);
+        } else {
+            hide ? height-- : height++; 
+            elem.style.height = height + 'px'; 
+        }
+    }
+  }
+
   render() {
     var todoEntries = this.props.toshow;
     var listItems = todoEntries.map(this.createTasks);
     return (
       <div className="contacts">
        {this.state.isModalOpen && ReactDOM.createPortal(<AddWearer reload={this.props.reloadwearers} id={this.props.id} group={this.props.group} onClose={this.tooglemodal.bind(this)} misswearers={this.props.toshow}/>, document.getElementById("portal"))}
-        <ul className="theList">
+        <ul className="theList" ref={ (divElement) => this.divElement = divElement}>
           {listItems}
         </ul>
         <div style={{display: !this.props.carer ? "flex" : "none"}} className="button" onClick={this.tooglemodal.bind(this)}><img src={addimg} /><p>Add Wearer to Group</p></div>

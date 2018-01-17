@@ -1,7 +1,7 @@
 import React from 'react';
 import './contacts.scss';
 import List from './List';
-import {HeaderNoBtn} from '../otherComponents/header';
+import {HeaderTwoBtn} from '../otherComponents/header';
 import axios from 'axios';
 import actions from './actionsContacts';
 
@@ -15,7 +15,8 @@ constructor(props){
 	this.state = {
 		changecontent: "wearer",
 		axiosData: "none",
-		height: "auto"
+		height: "auto",
+		hide: false
 };
 }
 
@@ -30,12 +31,16 @@ showCarers(){
 	this.setState({changecontent: "carer"})
 }
 
+hidelist(){
+	this.setState({hide: !this.state.hide})
+}
+
 render(){
 	const content = this.state.changecontent;
 	const data = this.props.usersdata;
 	let button;
 	if(content === "wearer" && data !== "none"){
-		button = <List style={{backgroundColor: "red"}} reloadwearers={this.props.reloadwearers} group={this.props.group} onchangestate={this.props.onchangestate} id={this.props.id} toshow={this.props.usersdata} deleteconfirm={this.props.deleteconfirm}/>
+		button = <List hide={this.state.hide} style={{backgroundColor: "red"}} reloadwearers={this.props.reloadwearers} group={this.props.group} onchangestate={this.props.onchangestate} id={this.props.id} toshow={this.props.usersdata} deleteconfirm={this.props.deleteconfirm}/>
 	} else if(data !== "none" && content === "carer"){
 		button = <List reloadwearers={this.props.reloadwearers} carer="carer" group={this.props.group} onchangestate={this.props.onchangestate} id={this.props.id} toshow={this.props.carers} deleteconfirm={this.props.deleteconfirm}/>
 	} else if(data == "none" || data == []){
@@ -43,7 +48,7 @@ render(){
 	}
 	return (
 			<div className="contacts-container">
-	 			<HeaderNoBtn header="Contacts"/>
+	 			<HeaderTwoBtn header="Contacts" onChange={this.hidelist.bind(this)}/>
 	 			<div className="chooseUser">
 					<div ref="wear" onClick={this.showWearers.bind(this)}><p>wearers</p></div>
 					<div ref="car" onClick={this.showCarers.bind(this)}><p>carers</p></div>
