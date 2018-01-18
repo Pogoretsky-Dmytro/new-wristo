@@ -69,6 +69,7 @@ componentWillUnmount(){
 }
 
 componentWillMount() {
+	console.log(sessionStorage)
 	this.state.interval = setInterval(() => this.getAlert(), 2000);
   if( sessionStorage.getItem("accesstoken") !== null && sessionStorage.getItem("uid") !== null && sessionStorage.getItem("client") !== null){
 		this.setState({

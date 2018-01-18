@@ -39,7 +39,7 @@ class List extends React.Component {
 
   createTasks(item) {
     return (
-      <li key={item.id}><div><ImageRound url={item.image !== undefined ? item.image.url : logo}/><p>{item.full_name}</p></div> <div> 
+      <li key={item.id}><div><ImageRound url={item.image == undefined || item.image.url == null ? logo : item.image.url}/><p>{item.full_name ? item.full_name: item.first_name}</p></div> <div> 
     <img alt="" src={email}/><img style={{display: this.props.carer ? "none" : ""}} alt="" src={deleteelem} onClick={(e) => this.props.onchangestate(item) } /></div> </li>); // this.setState({deletedId: item.id})
 
   }
