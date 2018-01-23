@@ -70,6 +70,8 @@ class MasterPage extends React.Component{
 		this.getCoords = this.getCoords.bind(this)
 		this.setAlarm = this.setAlarm.bind(this);
 		this.setNormAlarm = this.setNormAlarm.bind(this);
+		this.updateDimensions =  this.updateDimensions.bind(this);
+
 	}
 
 componentWillUnmount(){
@@ -77,7 +79,6 @@ componentWillUnmount(){
 }
 
 componentWillMount() {
-	console.log(window.innerWidth);
 	this.setState({windowwidth: window.innerWidth})
 	this.state.interval = setInterval(() => this.getAlert(), 2000);
   if( sessionStorage.getItem("accesstoken") !== null && sessionStorage.getItem("uid") !== null && sessionStorage.getItem("client") !== null){
@@ -121,6 +122,7 @@ getAlert(){
  }
 
 componentDidMount(){
+	window.addEventListener("resize", this.updateDimensions.bind(this));
 	this.getGroups();
 }
 
@@ -243,7 +245,9 @@ redirectToLogin() {
 getCoords(item){
 	this.setState({zoom: 16})
 }
-
+updateDimensions(){
+	this.setState({windowwidth: window.innerWidth});
+}
 
 render(){
 	let modal = null, renamemodal = null, deleteGroup = null, duplicateGroup = null, newGroup = null;
