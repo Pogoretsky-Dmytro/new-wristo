@@ -54,8 +54,10 @@ class MasterPage extends React.Component{
 			alarm: false,
 			lastalarm: {lat: 40, lng: 40},
 			alert: {},
-			center: { lat: 43.83, lng: 24.05 }
+			center: { lat: 43.83, lng: 24.05 },
+			windowwidth: 0
 		};
+
 		this.onchangestate = this.onchangestate.bind(this);
 		this.deleteListItem = this.deleteListItem.bind(this);
 		this.getWearers = this.getWearers.bind(this);
@@ -75,6 +77,8 @@ componentWillUnmount(){
 }
 
 componentWillMount() {
+	console.log(window.innerWidth);
+	this.setState({windowwidth: window.innerWidth})
 	this.state.interval = setInterval(() => this.getAlert(), 2000);
   if( sessionStorage.getItem("accesstoken") !== null && sessionStorage.getItem("uid") !== null && sessionStorage.getItem("client") !== null){
 		this.setState({
@@ -276,7 +280,7 @@ render(){
 		}}/> : this.state.redirectToLogin === false ? <div className="masterpage">
 		<Header redirectToLogin = {this.redirectToLogin}/>
 		<AddGroup show={this.state.isModal} active={this.state.group} groups={this.state.groups} onGroupClick={this.onGroupClick} onListClick={this.listClick}/>
-			<ReactGridLayout className="layout contacts-body" cols={12} width={1270}>
+			<ReactGridLayout className="layout contacts-body" cols={12} width={this.state.windowwidth-10}>
 				<div key="a" data-grid={{x: 0, y: 0, w: 8, h: 4.2}} >
 					<MapContainer zoom={this.state.zoom} onGet={this.setNormAlarm} coords={this.state.lastalarm} center={this.state.center}/>
 				</div>
