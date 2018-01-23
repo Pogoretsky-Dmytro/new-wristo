@@ -2,7 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import './notifications.scss'
 import {HeaderTwoBtn} from '../otherComponents/header';
-import defaulticon from '../../settings/default_avatar.png'
+import defaulticon from '../../settings/default_avatar.png';
+import Resizable from 're-resizable';
 //import Draggable from 'react-draggable';
 
 
@@ -48,7 +49,8 @@ constructor(props){
 			message:"SOS",
 			unique_wristo_id:"69M2VL",
 			updated_at:"2018-01-15T15:17:59.787Z",
-			viewed:true
+			viewed:true,
+			blockheight: 0,
 		}]
 	}
 	this.reduceheight = this.reduceheight.bind(this);
@@ -91,7 +93,7 @@ componentWillReceiveProps(nextProps){
 		if(nextProps.alert.id !== this.state.alerts[0].id){
 			let arr = this.state.alerts;
 			arr.unshift(nextProps.alert);
-			this.state.notifications = arr.map(this.createNotification.bind(this))
+			this.state.notifications = arr.map(this.createNotification.bind(this));
 			this.setState({alerts: arr});
 		}
 	}
@@ -104,12 +106,12 @@ hidelist(){
 	this.reduceheight(this.divElement, this.state.hide);
 }
 reduceheight(elem, hide){
-   this.divElement.style.maxHeight = !hide ? "204px" : "0px"
-   this.divElement.style.transitionDuration = "3s";
+	this.state.blockheight = this.container.height;
+	this.divElement.style.maxHeight = !hide ? "204px" : "0px"
+   	this.divElement.style.transitionDuration = "3s";
 }
 render(){
-	return (
-		<div className="notifications">
+	return (<div ref={ container => this.container = container } className="notifications">
 			<HeaderTwoBtn onChange={this.hidelist.bind(this)} header="Notifications"/>
 			<div className="events" ref={ (divElement) => this.divElement = divElement}>
 				{this.state.notifications}	
@@ -117,7 +119,7 @@ render(){
 			<div className="showAll">
 				<p>see all</p>
 			</div>
-		</div>
+	</div>
 	)
 }
 }

@@ -19,6 +19,9 @@ import List from '../contacts/List';
 import Header from "../../settings/wearer-settings/header/header";
 import WearersLoading from '../../settings/wearer-settings/wearers-configuration-page/wearer-loading.js';
 
+import ReactGridLayout from 'react-grid-layout';
+
+
 export let latArray = [{ lat: 0, lng: 0 }]
 
 var n = 0;
@@ -69,7 +72,6 @@ componentWillUnmount(){
 }
 
 componentWillMount() {
-	console.log(sessionStorage)
 	this.state.interval = setInterval(() => this.getAlert(), 2000);
   if( sessionStorage.getItem("accesstoken") !== null && sessionStorage.getItem("uid") !== null && sessionStorage.getItem("client") !== null){
 		this.setState({
@@ -270,16 +272,20 @@ render(){
 			pathname: '/'
 		}}/> : this.state.redirectToLogin === false ? <div className="masterpage">
 		<Header redirectToLogin = {this.redirectToLogin}/>
-			<div className="contacts-body">
-				<div className="left-bar">
-					<AddGroup show={this.state.isModal} active={this.state.group} groups={this.state.groups} onGroupClick={this.onGroupClick} onListClick={this.listClick}/>
+		<AddGroup show={this.state.isModal} active={this.state.group} groups={this.state.groups} onGroupClick={this.onGroupClick} onListClick={this.listClick}/>
+			<ReactGridLayout className="layout contacts-body" cols={12} width={1270}>
+				<div key="a" data-grid={{x: 0, y: 0, w: 8, h: 4.2}} >
 					<MapContainer zoom={this.state.zoom} onGet={this.setNormAlarm} coords={this.state.lastalarm} center={this.state.center}/>
 				</div>
-				<div className="right-bar">
-					<Contacts id={this.state.group} reloadwearers={this.getWearers} group={this.state.groupname} usersdata={this.state.wearers} carers={this.state.carers} onchangestate={this.onchangestate} deleteconfirm={this.state.confirm}/>
+				<div key="b" data-grid={{x: 8, y: 1, w: 4, h: 1.8}}>
+					<Contacts id={this.state.group} reloadwearers={this.getWearers} group={this.state.groupname} usersdata={this.state.wearers} 
+						carers={this.state.carers} onchangestate={this.onchangestate} deleteconfirm={this.state.confirm}/>
+				</div>
+				<div key="c" data-grid={{x: 8, y: 7, w: 4, h: 1.5}}>
 					<Notifications alert={this.state.alert} onChange={this.getCoords}/>
 				</div>
-			</div>
+				
+			</ReactGridLayout>
 			{duplicateGroup}
 			{renamemodal}
 			{modal}

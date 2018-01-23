@@ -4,6 +4,7 @@
 }
 .contacts .theList{
 	&::-webkit-scrollbar {
+		background-color: #fff;
    		width: 4px;
 	}
  	&::-webkit-scrollbar-button {display: none;}

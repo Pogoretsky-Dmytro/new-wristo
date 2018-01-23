@@ -100,9 +100,7 @@ class AddWearer extends React.Component {
     } 
   }
   addwearertogroup(){
-    console.log(this.state.activeli)
     for(let i = 0; i < this.state.activeli.length; i++){
-      console.log(i, this.state.activeli.length)
       axios({
       method: 'post',
       url: `https://wristo-platform-backend-stg.herokuapp.com/api/v1/groups/${this.props.id}/wearers`,

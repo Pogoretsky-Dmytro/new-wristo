@@ -31,7 +31,8 @@ const MyMapComponent = compose(
   withScriptjs,
   withGoogleMap
 )((props) =>
-  <GoogleMap ref={props.onMapMounted} onZoomChanged={props.onZoomChanged} onClick={() => props.onChange(8)} zoom={props.zoomprops} center={{lat: props.lan, lng: props.lng}}>
+  <GoogleMap ref={props.onMapMounted} onZoomChanged={() => {props.onChange(props.zoom);props.onZoomChanged()}} 
+   zoom={props.zoomprops} center={{lat: props.lan, lng: props.lng}}>
     <Marker position={{ lat: props.lan, lng: props.lng }}/>
   </GoogleMap>
 )
@@ -74,7 +75,7 @@ updateWindowDimensions() {
 }
 
 getzoom(zoom){
-  this.setState({zoom: zoom})
+  this.state.zoom = zoom;
 }
 hidelist(){
   this.setState({hide: !this.state.hide})

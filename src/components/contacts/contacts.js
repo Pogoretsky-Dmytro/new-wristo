@@ -5,6 +5,7 @@ import {HeaderTwoBtn} from '../otherComponents/header';
 import axios from 'axios';
 import actions from './actionsContacts';
 import Draggable from 'react-draggable';
+import Resizable from 're-resizable';
 
 function EbsentCarers(){
 	return <p className="absentcontacts">There is no wearers ...</p>
@@ -47,8 +48,7 @@ render(){
 	} else if(data == "none" || data == []){
 		button = <EbsentCarers />
 	}
-	return ( 
-			<div className="contacts-container">
+	return ( <div className="contacts-container" >
 	 			<HeaderTwoBtn header="Contacts" onChange={this.hidelist.bind(this)}/>
 	 			<div className="chooseUser">
 					<div ref="wear" onClick={this.showWearers.bind(this)}><p>wearers</p></div>
@@ -56,6 +56,7 @@ render(){
 				</div>
 			{button}
 			</div>
+
 		);
 	}
 }

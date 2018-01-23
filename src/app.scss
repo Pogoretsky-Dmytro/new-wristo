@@ -13,6 +13,11 @@
 @import './settings/wearer-settings/wearers-configuration-page/carers-data/addCarer.scss';
 @import './components/groups/groups.scss';
 
+@import '../node_modules/react-grid-layout/css/styles.scss';
+@import '../node_modules/react-resizable/css/styles.scss';
+
+
+
 @font-face {
 font-family: DINPro-Medium;
 src: url(./assets/fonts/DINPro-Medium_13936.ttf); 
