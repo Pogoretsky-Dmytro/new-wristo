@@ -14,6 +14,9 @@ import AddGroup from '../groups/addGroup';
 
 import '../maps/maps.scss';
 import './masterpage.scss';
+import '../../../node_modules/react-grid-layout/css/styles.scss';
+import '../../../node_modules/react-resizable/css/styles.scss';
+
 import Notifications from '../notifications/notifications'
 import List from '../contacts/List';
 import Header from "../../settings/wearer-settings/header/header";
