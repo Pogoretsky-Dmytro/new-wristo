@@ -81,7 +81,8 @@ componentWillUnmount(){
 componentWillMount() {
 	this.setState({windowwidth: window.innerWidth})
 	this.state.interval = setInterval(() => this.getAlert(), 2000);
-  if( sessionStorage.getItem("accesstoken") !== null && sessionStorage.getItem("uid") !== null && sessionStorage.getItem("client") !== null){
+  if( sessionStorage.getItem("accesstoken") !== null && sessionStorage.getItem("uid") !== null && 
+  		sessionStorage.getItem("client") !== null){
 		this.setState({
 			client: sessionStorage.getItem("client"),
 			accesstoken: sessionStorage.getItem("accesstoken"),
@@ -252,22 +253,26 @@ updateDimensions(){
 render(){
 	let modal = null, renamemodal = null, deleteGroup = null, duplicateGroup = null, newGroup = null;
 	if(this.state.showmodal === true){
-		modal = <Modal onchangestate={this.onchangestate} todelete={this.state.usertodeletename} group={this.state.groupname} deleteListItem={this.deleteListItem}/>
+		modal = <Modal onchangestate={this.onchangestate} todelete={this.state.usertodeletename}
+			group={this.state.groupname} deleteListItem={this.deleteListItem}/>
 	} else {
 		modal = null;
 	}
 	if(this.state.renamegroup === true){
-		renamemodal = <RenameGroup reloadgroup={this.getGroups} onchangestate={this.listClick} torename={this.state.groupdelete} id={this.state.group}/>
+		renamemodal = <RenameGroup reloadgroup={this.getGroups} onchangestate={this.listClick} 
+			torename={this.state.groupdelete} id={this.state.group}/>
 	} else {
 		renamemodal = null;
 	}
 	if(this.state.deleteGroup === true){
-		deleteGroup = <Delete reloadgroup={this.getGroups} onchangestate={this.listClick} todelete={this.state.groupdelete} id={this.state.group}/>
+		deleteGroup = <Delete reloadgroup={this.getGroups} onchangestate={this.listClick} 
+		todelete={this.state.groupdelete} id={this.state.group}/>
 	} else {
 		deleteGroup = null;
 	}
 	if(this.state.duplicateGroup === true){
-		duplicateGroup = <Duplicate reloadgroup={this.getGroups} onchangestate={this.listClick} todelete={this.state.groupdelete} id={this.state.todelete}/>
+		duplicateGroup = <Duplicate reloadgroup={this.getGroups} onchangestate={this.listClick} 
+		todelete={this.state.groupdelete} id={this.state.todelete}/>
 	} else {
 		duplicateGroup = null;
 	}
@@ -283,14 +288,33 @@ render(){
 			pathname: '/'
 		}}/> : this.state.redirectToLogin === false ? <div className="masterpage">
 		<Header redirectToLogin = {this.redirectToLogin}/>
-		<AddGroup show={this.state.isModal} active={this.state.group} groups={this.state.groups} onGroupClick={this.onGroupClick} onListClick={this.listClick}/>
-			<ReactGridLayout className="layout contacts-body" cols={12} width={this.state.windowwidth-10}>
+		<AddGroup 
+				show={this.state.isModal} 
+				active={this.state.group} 
+				groups={this.state.groups} 
+				onGroupClick={this.onGroupClick} 
+				onListClick={this.listClick}/>
+			<ReactGridLayout 
+					className="layout contacts-body" 
+					cols={12} 
+					width={this.state.windowwidth-10}
+					style={{height: "auto"}}>
 				<div key="a" data-grid={{x: 0, y: 0, w: 8, h: 4.2}} >
-					<MapContainer zoom={this.state.zoom} onGet={this.setNormAlarm} coords={this.state.lastalarm} center={this.state.center}/>
+					<MapContainer 
+						zoom={this.state.zoom} 
+						onGet={this.setNormAlarm} 
+						coords={this.state.lastalarm} 
+						center={this.state.center}/>
 				</div>
 				<div key="b" data-grid={{x: 8, y: 1, w: 4, h: 1.8}}>
-					<Contacts id={this.state.group} reloadwearers={this.getWearers} group={this.state.groupname} usersdata={this.state.wearers} 
-						carers={this.state.carers} onchangestate={this.onchangestate} deleteconfirm={this.state.confirm}/>
+					<Contacts 
+						id={this.state.group} 
+						reloadwearers={this.getWearers} 
+						group={this.state.groupname} 
+						usersdata={this.state.wearers} 
+						carers={this.state.carers} 
+						onchangestate={this.onchangestate} 
+						deleteconfirm={this.state.confirm}/>
 				</div>
 				<div key="c" data-grid={{x: 8, y: 7, w: 4, h: 1.5}}>
 					<Notifications alert={this.state.alert} onChange={this.getCoords}/>
