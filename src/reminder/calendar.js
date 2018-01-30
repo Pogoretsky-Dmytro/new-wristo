@@ -25,7 +25,7 @@ month[9] = "OCT";
 month[10] = "NOV";
 month[11] = "DEC";
 
-var d = new Date(2018, 0, 14);
+var d = new Date(2018, 0, 16);
 var day = weekday[d.getDay()];
 var date = d.getDate();
 var n = month[d.getMonth()];
@@ -75,7 +75,6 @@ class Calendar extends React.Component{
                 date = date - numberofdays
             }
         }
-
         if(date < weekday.indexOf(day)){
             firstday = numberofdays + 1 - (weekday.indexOf(day) - date);
         } else{
@@ -87,13 +86,11 @@ class Calendar extends React.Component{
         }
         var arr1 = [];
         if (lastday > firstday){
-            console.log("here")
             for(let r = firstday, d = 0; ; r++, d++){
                 if(r > lastday) break;
                 arr1[d] = {month: month.indexOf(n), day: r}
             }
         } else if(lastday < firstday){
-            console.log("here 22")
              for(var b = lastday, d = 6; ; b--, d--){
                 if(b < 1)break;
                 arr1[d] = {month: month.indexOf(n)+1, day: b};
@@ -107,7 +104,6 @@ class Calendar extends React.Component{
     }
 
 	previousWeek(){
-        //debugger;
 		let uu = this.setweek("previous");
         this.setState({firstday: uu[1], lastday: uu[2], month: uu[0], arrayofweek: uu[4]})
     }
@@ -117,19 +113,26 @@ class Calendar extends React.Component{
 
     }
     createweek(){
-        if(date < weekday.indexOf(day)){
+        if(date < weekday.indexOf(day)  && (date - 7) > 0){
            this.state.firstday = numberofdays + 1 - (weekday.indexOf(day) - date);
-        } else{
+        } else {
             this.state.firstday = date - (weekday.indexOf(day)) + 1;
         }
         this.state.lastday = this.state.firstday + 6;
-        if(this.state.firstday + 6 > numberofdays){
+        if(this.state.firstday < 0){
             this.state.lastday = Math.abs(numberofdays - (this.state.firstday + 6));
-        };
-        this.state.month =  month.indexOf(n);
-        for(let r = this.state.firstday, d = 0; r <= this.state.lastday; r++, d++){
+            for(let r = this.state.lastday, d = 6; r > 0; r--, d--){
                 this.state.arrayofweek[d] = {month: month.indexOf(n), day: r}
+            }
+            // for(let r = this.state.firstday, d = 0; r <= numberofdays; r++, d++){
+            //     this.state.arrayofweek[d] = {month: month.indexOf(n), day: r}
+            // }
+        } else {
+            for(let r = this.state.firstday, d = 0; r <= this.state.lastday; r++, d++){
+                this.state.arrayofweek[d] = {month: month.indexOf(n), day: r}
+            } 
         }
+        //this.state.month =  month.indexOf(n);
     }
     componentWillMount(){
         this.createweek();

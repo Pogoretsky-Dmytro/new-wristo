@@ -131,7 +131,7 @@ componentDidMount(){
 		this.state.groupid = response[0].id;
 		this.getWearers(this.state.groupid)
 	}, error => { 
-		console.log(error.response);
+		console.log(error);
 		if(error.response.status === 401){
 				this.setState({
 					redirectToLogin: true

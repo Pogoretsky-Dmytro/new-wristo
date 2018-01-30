@@ -305,7 +305,7 @@ render(){
       {i: 'b', x: 8, y: 2, w: 4, h: 2},
       {i: 'c', x: 8, y: 4, w: 4, h: 2}
     ], sm: [
-      {i: 'a', x: 0, y: 4, w: 12, h: 2, static: true},
+      {i: 'a', x: 0, y: 4, w: 12, h: 2, static: false},
       {i: 'b', x: 0, y: 0, w: 12, h: 2},
       {i: 'c', x: 0, y: 2, w: 12, h: 2}
     ]};
