@@ -11,7 +11,7 @@ const MyMapComponent = compose(
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBla7cldJeOqMXD4xPNcARqmGRPB-YQOZs&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div />,
-    mapElement: <div style={{height: `560px`}} />,
+    mapElement: <div style={{height: `495px`}} />,
   }),
   withState('zoom', 'onZoomChange', 8),
    withHandlers(() => {
