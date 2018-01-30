@@ -1,5 +1,9 @@
 .masterpage .navigation ul li:first-child {background-color: #a1a1a1;}
 
+.contacts-body > :nth-child(n){
+	box-shadow: 0 0 6px rgba(0,0,0,0.6);
+}
+
 .right-bar .addTitle{
 	cursor: pointer;
 	box-shadow: none;

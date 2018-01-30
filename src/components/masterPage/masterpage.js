@@ -297,16 +297,15 @@ render(){
 			<ReactGridLayout 
 					className="layout contacts-body" 
 					cols={12} 
-					width={this.state.windowwidth-10}
-					style={{height: "auto"}}>
-				<div key="a" data-grid={{x: 0, y: 0, w: 8, h: 4.2}} >
+					width={this.state.windowwidth-10}>
+				<div key="a" data-grid={{x: 0, y: 0, w: 8, h: 4}} >
 					<MapContainer 
 						zoom={this.state.zoom} 
 						onGet={this.setNormAlarm} 
 						coords={this.state.lastalarm} 
 						center={this.state.center}/>
 				</div>
-				<div key="b" data-grid={{x: 8, y: 1, w: 4, h: 1.8}}>
+				<div key="b" data-grid={{x: 8, y: 0, w: 4, h: 2}}>
 					<Contacts 
 						id={this.state.group} 
 						reloadwearers={this.getWearers} 
@@ -316,7 +315,7 @@ render(){
 						onchangestate={this.onchangestate} 
 						deleteconfirm={this.state.confirm}/>
 				</div>
-				<div key="c" data-grid={{x: 8, y: 7, w: 4, h: 1.5}}>
+				<div key="c" data-grid={{x: 9, y: 3, w: 4, h: 2}}>
 					<Notifications alert={this.state.alert} onChange={this.getCoords}/>
 				</div>
 				

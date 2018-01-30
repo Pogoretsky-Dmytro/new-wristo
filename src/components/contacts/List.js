@@ -55,7 +55,7 @@ class List extends React.Component {
   }
 
   reduceheight(hide){
-    this.divElement.style.maxHeight = !hide ? "195px" : "0px"
+    this.divElement.style.maxHeight = !hide ? "147px" : "0px"
     this.divElement.style.transitionDuration = "3s";
   }
 
