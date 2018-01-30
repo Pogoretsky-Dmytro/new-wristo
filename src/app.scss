@@ -28,6 +28,22 @@ src: url(./assets/fonts/DINPro-Regular_13937.ttf);
 #portal{
   z-index: 99999999;
 }
+.loader {
+    border: 8px solid #C0C0C0;
+    border-radius: 50%;
+    border-top: 8px solid #b52f54;
+    border-bottom: 8px solid #b52f54;
+    width: 120px;
+    height: 120px;
+    margin: 20% auto;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 * {
   margin: 0;
   padding: 0;

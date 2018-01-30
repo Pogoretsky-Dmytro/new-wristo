@@ -56,7 +56,7 @@ class MasterPage extends React.Component{
 			alert: {},
 			center: { lat: 43.83, lng: 24.05 },
 			windowwidth: 0,
-			dragableMap: true
+			loading: true
 		};
 
 		this.onchangestate = this.onchangestate.bind(this);
@@ -83,14 +83,17 @@ componentWillUnmount(){
 componentWillMount() {
 	this.setState({windowwidth: window.innerWidth})
 	this.state.interval = setInterval(() => this.getAlert(), 2000);
-  if( sessionStorage.getItem("accesstoken") !== null && sessionStorage.getItem("uid") !== null && 
+  	if( sessionStorage.getItem("accesstoken") !== null && sessionStorage.getItem("uid") !== null && 
   		sessionStorage.getItem("client") !== null){
-		this.setState({
-			client: sessionStorage.getItem("client"),
-			accesstoken: sessionStorage.getItem("accesstoken"),
-			uid: sessionStorage.getItem("uid"),
-		})  
-		} 
+			setTimeout(() => {
+				this.setState({
+				client: sessionStorage.getItem("client"),
+				accesstoken: sessionStorage.getItem("accesstoken"),
+				uid: sessionStorage.getItem("uid"),
+				loading: false
+			}); console.log("done"); 
+			}, 1000)
+	}
 };
 
 setAlarm(item){
@@ -288,6 +291,9 @@ render(){
 		newGroup = <NewGroup reloadgroup={this.getGroups} onchangestate={this.listClick}/>
 	} else {
 		newGroup = null;
+	}
+	if(this.state.loading){
+		return <div class="loader"></div>;
 	}
 	return (
 	<div>{
