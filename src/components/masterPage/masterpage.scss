@@ -182,6 +182,9 @@
      	flex-direction: row;
      	margin-top: 0px;
      }
+     .map > :last-child{
+     	height: 200px;
+     }
      .right-bar {
      	display: flex;
      	justify-content: space-around;

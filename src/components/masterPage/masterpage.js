@@ -297,15 +297,15 @@ render(){
 		return <div class="loader"></div>;
 	}
 	var layouts = {lg: [
-      {i: 'a', x: 0, y: 0, w: 8, h: 2},
+      {i: 'a', x: 0, y: 0, w: 8, h: 2, static: true},
       {i: 'b', x: 8, y: 2, w: 4, h: 2},
       {i: 'c', x: 8, y: 4, w: 4, h: 2}
     ], md: [
-      {i: 'a', x: 0, y: 4, w: 12, h: 2},
+      {i: 'a', x: 0, y: 0, w: 8, h: 2, static: true},
       {i: 'b', x: 8, y: 2, w: 4, h: 2},
       {i: 'c', x: 8, y: 4, w: 4, h: 2}
     ], sm: [
-      {i: 'a', x: 0, y: 4, w: 12, h: 2},
+      {i: 'a', x: 0, y: 4, w: 12, h: 2, static: true},
       {i: 'b', x: 0, y: 0, w: 12, h: 2},
       {i: 'c', x: 0, y: 2, w: 12, h: 2}
     ]};
@@ -326,7 +326,7 @@ render(){
       				layouts={layouts}
 					className="layout contacts-body" 
 					width={this.state.windowwidth-10}>
-				<div onMouseMove={this.onMouseOver} key={this.state.dragableMap ? "a" : "h"} data-grid={{x: 0, y: 0, w: 8, h: 4, static: true}}>
+				<div onMouseMove={this.onMouseOver} key="a">
 					<MapContainer
 						zoom={this.state.zoom} 
 						onGet={this.setNormAlarm} 
