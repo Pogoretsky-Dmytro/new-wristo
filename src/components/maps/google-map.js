@@ -11,7 +11,7 @@ const MyMapComponent = compose(
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBla7cldJeOqMXD4xPNcARqmGRPB-YQOZs&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div />,
-    mapElement: <div style={{height: `600px`}} />,
+    mapElement: <div style={{height: `560px`}} />,
   }),
   withState('zoom', 'onZoomChange', 8),
    withHandlers(() => {
@@ -84,13 +84,13 @@ hidelist(){
 }
 reduceheight(hide){
   var mapheight;
-  if(this.state.width < 825) {
+ /* if(this.state.width < 825) {
     mapheight = "200px"
   } else {
-    mapheight = "600px"
+    mapheight = "560px"
   }
   this.divElement.style.height = hide ? mapheight : "0px"
-  this.divElement.style.transitionDuration = "2s";
+  this.divElement.style.transitionDuration = "2s";*/
 }
 reloadComponents(){
   this.forceUpdate();
@@ -100,7 +100,7 @@ render() {
 	return (
   	<div className="map">
   		<HeaderThreeBtn onReload={this.reloadComponents.bind(this)} onChange={this.hidelist.bind(this)} header="Map"/>
-      <div id="header" style={{height: this.state.width < 825 ? "200px" : "600px"}} ref={ (divElement) => this.divElement = divElement} >
+      <div id="header"  ref={ (divElement) => this.divElement = divElement} >
   		<MyMapComponent hide={this.state.hide} onChange={this.getzoom} zoomprops={this.state.zoom} lan={this.state.lan} lng={this.state.lng} center={this.props.center}/>
   	</div>
   </div>

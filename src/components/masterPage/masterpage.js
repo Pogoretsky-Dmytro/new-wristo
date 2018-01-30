@@ -22,7 +22,8 @@ import List from '../contacts/List';
 import Header from "../../settings/wearer-settings/header/header";
 import WearersLoading from '../../settings/wearer-settings/wearers-configuration-page/wearer-loading.js';
 
-import ReactGridLayout from 'react-grid-layout';
+import {Responsive, WidthProvider} from 'react-grid-layout';
+const ResponsiveReactGridLayout = WidthProvider(Responsive)
 
 
 export let latArray = [{ lat: 0, lng: 0 }]
@@ -92,7 +93,7 @@ componentWillMount() {
 				uid: sessionStorage.getItem("uid"),
 				loading: false
 			}); console.log("done"); 
-			}, 1000)
+			}, 0)
 	}
 };
 
@@ -295,6 +296,19 @@ render(){
 	if(this.state.loading){
 		return <div class="loader"></div>;
 	}
+	var layouts = {lg: [
+      {i: 'a', x: 0, y: 0, w: 8, h: 2},
+      {i: 'b', x: 8, y: 2, w: 4, h: 2},
+      {i: 'c', x: 8, y: 4, w: 4, h: 2}
+    ], md: [
+      {i: 'a', x: 0, y: 4, w: 12, h: 2},
+      {i: 'b', x: 8, y: 2, w: 4, h: 2},
+      {i: 'c', x: 8, y: 4, w: 4, h: 2}
+    ], sm: [
+      {i: 'a', x: 0, y: 4, w: 12, h: 2},
+      {i: 'b', x: 0, y: 0, w: 12, h: 2},
+      {i: 'c', x: 0, y: 2, w: 12, h: 2}
+    ]};
 	return (
 	<div>{
 		this.state.redirectToLogin ?  <Redirect to={{
@@ -307,9 +321,10 @@ render(){
 				groups={this.state.groups}
 				onGroupClick={this.onGroupClick}
 				onListClick={this.listClick}/>
-			<ReactGridLayout 
+			<ResponsiveReactGridLayout breakpoints={{lg: 1300, md: 850, sm: 830, xs: 480, xxs: 0}}
+      cols={{lg: 12, md: 12, sm: 12, xs: 4, xxs: 2}}
+      				layouts={layouts}
 					className="layout contacts-body" 
-					cols={12} 
 					width={this.state.windowwidth-10}>
 				<div onMouseMove={this.onMouseOver} key={this.state.dragableMap ? "a" : "h"} data-grid={{x: 0, y: 0, w: 8, h: 4, static: true}}>
 					<MapContainer
@@ -332,7 +347,7 @@ render(){
 					<Notifications alert={this.state.alert} onChange={this.getCoords}/>
 				</div>
 				
-			</ReactGridLayout>
+			</ResponsiveReactGridLayout>
 			{duplicateGroup}
 			{renamemodal}
 			{modal}

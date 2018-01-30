@@ -169,9 +169,6 @@
 	}
 }
 @media screen and (max-width: 825px) {
-	.map {
-		margin-right: 10px;
-	}
     .contacts-body {
     	flex-direction: column;
     }
@@ -184,9 +181,6 @@
      .right-bar {
      	flex-direction: row;
      	margin-top: 0px;
-     }
-     .map > :last-child{
-     	height: 200px;
      }
      .right-bar {
      	display: flex;
