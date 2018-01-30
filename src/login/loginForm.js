@@ -120,8 +120,7 @@ class LogInForm extends React.Component {
 
   render() {
     if(!this.state.redirectToMaster){
-      console.log("loading")
-      return <div>loading...</div>
+      return <div class="loader"></div>
     } else {
        return (<div> 
       {this.state.isAuthenticated || this.state.redirectToMaster ?  <Redirect master={master} to={{pathname: '/masterpage'}}/> : <p></p>}
