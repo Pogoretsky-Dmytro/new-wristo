@@ -49,11 +49,12 @@ class MapContainer extends React.Component {
       zoom: 0,
       hide: false,
       width: 0,
-      height: 0
+      height: 0,
+      dragableMap: false
     }
     this.getzoom = this.getzoom.bind(this);
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-    this.reduceheight = this.reduceheight.bind(this)
+    this.reduceheight = this.reduceheight.bind(this);
   }
 
 componentWillReceiveProps(nextProps){
@@ -94,13 +95,14 @@ reduceheight(hide){
 reloadComponents(){
   this.forceUpdate();
 }
+
 render() {
 	return (
-	<div className="map">
-		<HeaderThreeBtn onReload={this.reloadComponents.bind(this)} onChange={this.hidelist.bind(this)} header="Map"/>
-    <div style={{height: this.state.width < 825 ? "200px" : "600px"}} ref={ (divElement) => this.divElement = divElement} >
-		<MyMapComponent hide={this.state.hide} onChange={this.getzoom} zoomprops={this.state.zoom} lan={this.state.lan} lng={this.state.lng} center={this.props.center}/>
-	  </div>
+  	<div className="map">
+  		<HeaderThreeBtn onReload={this.reloadComponents.bind(this)} onChange={this.hidelist.bind(this)} header="Map"/>
+      <div id="header" style={{height: this.state.width < 825 ? "200px" : "600px"}} ref={ (divElement) => this.divElement = divElement} >
+  		<MyMapComponent hide={this.state.hide} onChange={this.getzoom} zoomprops={this.state.zoom} lan={this.state.lan} lng={this.state.lng} center={this.props.center}/>
+  	</div>
   </div>
 	);
 	}

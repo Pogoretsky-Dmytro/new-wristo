@@ -25,7 +25,7 @@ month[9] = "OCT";
 month[10] = "NOV";
 month[11] = "DEC";
 
-var d = new Date();
+var d = new Date(2018, 0, 14);
 var day = weekday[d.getDay()];
 var date = d.getDate();
 var n = month[d.getMonth()];
@@ -87,11 +87,13 @@ class Calendar extends React.Component{
         }
         var arr1 = [];
         if (lastday > firstday){
+            console.log("here")
             for(let r = firstday, d = 0; ; r++, d++){
                 if(r > lastday) break;
                 arr1[d] = {month: month.indexOf(n), day: r}
             }
         } else if(lastday < firstday){
+            console.log("here 22")
              for(var b = lastday, d = 6; ; b--, d--){
                 if(b < 1)break;
                 arr1[d] = {month: month.indexOf(n)+1, day: b};

@@ -55,7 +55,8 @@ class MasterPage extends React.Component{
 			lastalarm: {lat: 40, lng: 40},
 			alert: {},
 			center: { lat: 43.83, lng: 24.05 },
-			windowwidth: 0
+			windowwidth: 0,
+			dragableMap: true
 		};
 
 		this.onchangestate = this.onchangestate.bind(this);
@@ -71,6 +72,7 @@ class MasterPage extends React.Component{
 		this.setAlarm = this.setAlarm.bind(this);
 		this.setNormAlarm = this.setNormAlarm.bind(this);
 		this.updateDimensions =  this.updateDimensions.bind(this);
+		this.onMouseOver = this.onMouseOver.bind(this);
 
 	}
 
@@ -249,7 +251,13 @@ getCoords(item){
 updateDimensions(){
 	this.setState({windowwidth: window.innerWidth});
 }
-
+onMouseOver(e){
+	if(e.target.className == ""){
+		//this.setState({dragableMap: true});
+	} else {
+		//this.setState({dragableMap: false});
+	}
+}
 render(){
 	let modal = null, renamemodal = null, deleteGroup = null, duplicateGroup = null, newGroup = null;
 	if(this.state.showmodal === true){
@@ -281,7 +289,6 @@ render(){
 	} else {
 		newGroup = null;
 	}
-
 	return (
 	<div>{
 		this.state.redirectToLogin ?  <Redirect to={{
@@ -289,17 +296,17 @@ render(){
 		}}/> : this.state.redirectToLogin === false ? <div className="masterpage">
 		<Header redirectToLogin = {this.redirectToLogin}/>
 		<AddGroup 
-				show={this.state.isModal} 
-				active={this.state.group} 
-				groups={this.state.groups} 
-				onGroupClick={this.onGroupClick} 
+				show={this.state.isModal}
+				active={this.state.group}
+				groups={this.state.groups}
+				onGroupClick={this.onGroupClick}
 				onListClick={this.listClick}/>
 			<ReactGridLayout 
 					className="layout contacts-body" 
 					cols={12} 
 					width={this.state.windowwidth-10}>
-				<div key="a" data-grid={{x: 0, y: 0, w: 8, h: 4}} >
-					<MapContainer 
+				<div onMouseMove={this.onMouseOver} key={this.state.dragableMap ? "a" : "h"} data-grid={{x: 0, y: 0, w: 8, h: 4, static: true}}>
+					<MapContainer
 						zoom={this.state.zoom} 
 						onGet={this.setNormAlarm} 
 						coords={this.state.lastalarm} 

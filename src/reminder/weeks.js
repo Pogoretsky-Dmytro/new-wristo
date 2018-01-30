@@ -6,6 +6,7 @@ class Weeks extends React.Component{
 		this.state = {}
 	}
 	render(){
+		console.log(this.props.weekarray)
 		let clas;
 		if(this.props.wearershow == "All wearers" || this.props.wearershow == 0){
 			clas = "allwearers";
