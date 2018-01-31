@@ -15,13 +15,15 @@ import LogIn from './login/login';
 import ResetPassword from './login/password';
 import Reminder from '../src/reminder/reminder';
 import MasterPage from './components/masterPage/masterpage';
-import SettingsPage from './settings/wearer-settings/wearers-configuration-page/wearerSettingsPage.js'
+import SettingsPage from './settings/wearer-settings/wearers-configuration-page/wearerSettingsPage.js';
+import NotificationsMain from './notification/notificationMain';
 
 ReactDOM.render(
   <HashRouter>
     <div>
       <Route path="/resetpassword" component={ResetPassword}/>
       <Route path="/signup" component={SignUp}/>
+      <Route path="/notifications" component={NotificationsMain}/>
       <Route path="/masterpage" component={MasterPage}/>
       <Route path="/settings" component={SettingsPage}/>
       <Route path="/reminders" component={Reminder}/>

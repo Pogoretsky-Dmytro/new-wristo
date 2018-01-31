@@ -78,6 +78,7 @@ class MasterPage extends React.Component{
 	}
 
 componentWillUnmount(){
+	window.removeEventListener("resize", this.updateDimensions);
 	clearInterval(this.state.interval)
 }
 

@@ -4,9 +4,6 @@ import './notifications.scss'
 import {HeaderTwoBtn} from '../otherComponents/header';
 import defaulticon from '../../settings/default_avatar.png';
 import Resizable from 're-resizable';
-//import Draggable from 'react-draggable';
-
-
 
 class AddEvent extends React.Component{
 	constructor(props){
@@ -111,7 +108,8 @@ reduceheight(elem, hide){
    	this.divElement.style.transitionDuration = "3s";
 }
 render(){
-	return (<div ref={ container => this.container = container } className="notifications">
+	return (
+		<div ref={ container => this.container = container } className="notifications">
 			<HeaderTwoBtn onChange={this.hidelist.bind(this)} header="Notifications"/>
 			<div className="events" ref={ (divElement) => this.divElement = divElement}>
 				{this.state.notifications}	
@@ -119,7 +117,7 @@ render(){
 			<div className="showAll">
 				<p>see all</p>
 			</div>
-	</div>
+		</div>
 	)
 }
 }

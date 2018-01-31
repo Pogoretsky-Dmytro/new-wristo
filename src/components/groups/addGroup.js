@@ -24,10 +24,7 @@ class DropDownMenu extends React.Component{
 
 export default class AddGroup extends React.Component{
 	constructor(props){
-		super(props);;
-		this.state = {
-			hover: ""
-		}
+		super(props);
 	}
 	addGroup(item){
 		let clas;

@@ -93,7 +93,7 @@ reduceheight(hide){
   this.divElement.style.transitionDuration = "2s";*/
 }
 reloadComponents(){
-  this.forceUpdate();
+  //this.forceUpdate();
 }
 
 render() {

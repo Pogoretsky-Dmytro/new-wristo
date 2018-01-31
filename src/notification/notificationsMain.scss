@@ -1,0 +1,29 @@
+.main-notifications {
+	& .dropdown, .addnwegroup {
+		display: none;
+	}
+	& .help-block{
+		display: flex;
+		justify-content: space-between;
+	}
+	& .add-group{margin: 0;}
+	& .add-group > div{
+		margin: 0;
+		&:hover .dropdown{
+			display: none;
+			opacity: 0;
+		}
+	}
+	& .main-content{
+		box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+		margin: 20px;
+		background-color: #fff;
+		& .switch-wearers {
+			width: 443px;
+			& > div{padding: 0px 20px;}
+		    & .dropbtn{
+		    	height: 38px;	
+		    }
+    	}
+	}
+}
